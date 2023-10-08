@@ -1,19 +1,20 @@
 package com.example.habit2
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-
-class MainActivity : AppCompatActivity() {
+class mainFragment : Fragment() {
     private val habitList = ArrayList<String>()
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var habitListView: ListView
@@ -22,38 +23,29 @@ class MainActivity : AppCompatActivity() {
     private lateinit var habitNameEditText: EditText
     private lateinit var habitDatabase: HabitDatabase
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_main, container, false)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        // 네비게이션 바를 숨김
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
-
-// 화면이 터치될 때마다 네비게이션 바를 다시 숨김
-        window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
-            if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
-                // 네비게이션 바가 나타나면 다시 숨김
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
-            }
-        }
-
-        setContentView(R.layout.activity_main)
-
-        habitListView = findViewById(R.id.habitListView)
-        addButton = findViewById(R.id.addButton)
-        removeButton = findViewById(R.id.removeButton)
-        habitNameEditText = findViewById(R.id.habitNameEditText)
-        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, habitList)
+        habitListView = view.findViewById(R.id.habitListView)
+        addButton = view.findViewById(R.id.addButton)
+        removeButton = view.findViewById(R.id.removeButton)
+        habitNameEditText = view.findViewById(R.id.habitNameEditText)
+        adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, habitList)
         habitListView.adapter = adapter
 
         habitDatabase = Room.databaseBuilder(
-            applicationContext,
+            requireContext().applicationContext,
             HabitDatabase::class.java,
             "habit-db"
         ).build()
+
         GlobalScope.launch(Dispatchers.IO) {
             val habits = habitDatabase.habitDao().getAllHabits()
-            runOnUiThread {
+            requireActivity().runOnUiThread {
                 habitList.clear()
                 habitList.addAll(habits.map { it.name })
                 adapter.notifyDataSetChanged()
@@ -63,8 +55,8 @@ class MainActivity : AppCompatActivity() {
         addButton.setOnClickListener {
             val habitName = habitNameEditText.text.toString()
             if (habitName.isNotEmpty()) {
-                val habit = Habit(name=habitName)
-                GlobalScope.launch(Dispatchers.IO){
+                val habit = Habit(name = habitName)
+                GlobalScope.launch(Dispatchers.IO) {
                     habitDatabase.habitDao().insertHabit(habit)
                 }
                 habitList.add(habitName)
@@ -81,5 +73,7 @@ class MainActivity : AppCompatActivity() {
                 habitNameEditText.text.clear()
             }
         }
+
+        return view
     }
 }

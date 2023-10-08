@@ -16,6 +16,7 @@
         android:layout_marginTop="246dp"
         android:textColor="#004987"
         android:text="GoGo."
+        android:textStyle="bold"
         android:textSize="65sp"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"

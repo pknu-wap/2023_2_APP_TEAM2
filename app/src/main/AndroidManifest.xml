@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Habit2">
+        <activity android:name=".MainActivity">
+            <!-- MainActivity는 시작 액티비티가 아닌 일반 액티비티로 설정 -->
+        </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
