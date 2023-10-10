@@ -12,19 +12,14 @@
         android:id="@+id/habitNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Habit Name" />
+        android:hint="습관 설정하기" />
 
     <Button
         android:id="@+id/addButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add" />
-
-    <Button
-        android:id="@+id/removeButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Remove" />
+        android:text="Add"
+        app:backgroundTint="#70E4F3" />
 
     <ListView
         android:id="@+id/habitListView"

@@ -2,10 +2,7 @@ package com.example.habit2
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ListView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
@@ -18,9 +15,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var habitListView: ListView
     private lateinit var addButton: Button
-    private lateinit var removeButton: Button
+
     private lateinit var habitNameEditText: EditText
     private lateinit var habitDatabase: HabitDatabase
+    private lateinit var habitTextView: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,13 +35,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        setContentView(R.layout.activity_main)
-
         habitListView = findViewById(R.id.habitListView)
         addButton = findViewById(R.id.addButton)
-        removeButton = findViewById(R.id.removeButton)
+
         habitNameEditText = findViewById(R.id.habitNameEditText)
-        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, habitList)
+
+        adapter = ArrayAdapter(this, R.layout.list_item,R.id.habitTextView, habitList)
         habitListView.adapter = adapter
 
         habitDatabase = Room.databaseBuilder(
@@ -73,12 +70,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        removeButton.setOnClickListener {
-            val habitName = habitNameEditText.text.toString()
-            if (habitName.isNotEmpty() && habitList.contains(habitName)) {
+        habitListView.setOnItemClickListener { parent, view, position, id ->
+            // 해당 항목의 CheckBox 상태를 토글합니다.
+            val checkBox = view.findViewById<CheckBox>(R.id.checkBox)
+            checkBox.isChecked = !checkBox.isChecked
+        }
+
+    }
+    fun onRemoveButtonClick(view: View) {
+        val parent = view.parent as View
+        val listItemLayout = parent.findViewById<LinearLayout>(R.id.listItemLayout) // 부모 레이아웃 찾기
+        val habitTextView = parent.findViewById<TextView>(R.id.habitTextView)
+        val habitName = habitTextView.text.toString()
+
+        GlobalScope.launch(Dispatchers.IO) {
+            habitDatabase.habitDao().deleteHabitByName(habitName)
+            runOnUiThread {
                 habitList.remove(habitName)
                 adapter.notifyDataSetChanged()
-                habitNameEditText.text.clear()
             }
         }
     }
