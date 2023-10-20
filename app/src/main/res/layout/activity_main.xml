@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="20dp"
     tools:context=".MainActivity">
 
     <EditText
@@ -13,13 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="15dp"
         android:hint="습관 설정하기" />
 
     <Button
         android:id="@+id/addButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
@@ -30,6 +31,7 @@
         android:id="@+id/habitListView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:divider="@android:color/transparent"
         android:layout_weight="1" />
 
 </LinearLayout>
