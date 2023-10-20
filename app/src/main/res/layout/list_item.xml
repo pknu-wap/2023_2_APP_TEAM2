@@ -24,12 +24,12 @@
 
     <Button
         android:id="@+id/removeButton"
-        android:layout_width="45dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:onClick="onRemoveButtonClick"
         android:text="X"
-        android:textStyle="bold"
-        android:textColor="#70E4F3"
+        android:textColor="#4FBFCD"
         android:textSize="12dp"
-        app:backgroundTint="#F6F6F6" />
+        android:textStyle="bold"
+        app:backgroundTint="#D4F4F8" />
 </LinearLayout>

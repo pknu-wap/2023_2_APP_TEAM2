@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         // 네비게이션 바를 숨김
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
 
-// 화면이 터치될 때마다 네비게이션 바를 다시 숨김
+    // 화면이 터치될 때마다 네비게이션 바를 다시 숨김
         window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
             if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
                 // 네비게이션 바가 나타나면 다시 숨김
