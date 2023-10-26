@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Habit2" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
+        <!-- 위에 바 없애기-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/purple_500</item>

@@ -1,6 +1,8 @@
 package com.example.habit2
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -69,7 +71,6 @@ class MainActivity : AppCompatActivity() {
                 habitNameEditText.text.clear()
             }
         }
-
         habitListView.setOnItemClickListener { parent, view, position, id ->
             // 해당 항목의 CheckBox 상태를 토글합니다.
             val checkBox = view.findViewById<CheckBox>(R.id.checkBox)
@@ -77,9 +78,21 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+    fun onListItemClick(view: View) {
+        val position = habitListView.getPositionForView(view) // 클릭한 뷰의 위치 가져오기
+
+        if (position != ListView.INVALID_POSITION) {
+            // Habit 항목을 클릭했을 때 HabitDetailActivity로 전환
+            val habitName = habitList[position]
+            val intent = Intent(this, HabitDetailActivity::class.java)
+            intent.putExtra("habitName", habitName)
+            startActivity(intent)
+        }
+    }
+
     fun onRemoveButtonClick(view: View) {
         val parent = view.parent as View
-        val listItemLayout = parent.findViewById<LinearLayout>(R.id.listItemLayout) // 부모 레이아웃 찾기
+        //val listItemLayout = parent.findViewById<LinearLayout>(R.id.listItemLayout) // 부모 레이아웃 찾기
         val habitTextView = parent.findViewById<TextView>(R.id.habitTextView)
         val habitName = habitTextView.text.toString()
 
