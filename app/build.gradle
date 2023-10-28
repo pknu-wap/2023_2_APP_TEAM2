@@ -33,6 +33,9 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'  // 버전은 사용 중인 버전에 따라 다를 수 있음
+
+    implementation "androidx.room:room-ktx:2.4.0"
     implementation "androidx.room:room-runtime:2.4.0"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "androidx.room:room-compiler:2.4.0"
