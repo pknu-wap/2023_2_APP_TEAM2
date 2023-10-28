@@ -88,6 +88,7 @@ class RectangleAdapter : RecyclerView.Adapter<RectangleAdapter.RectangleViewHold
                     // 순서가 잘못된 경우에 대한 처리
                     // 여기에서 알림을 표시하거나 작업을 취소할 수 있음
                 }
+                updateCheckboxState()
             }
         }
 
@@ -106,7 +107,7 @@ class RectangleAdapter : RecyclerView.Adapter<RectangleAdapter.RectangleViewHold
                 }
                 notifyDataSetChanged()
                 lastClickedPosition = -1 // 모든 사각형을 클릭할 때 초기화
-
+                updateCheckboxState()
             }
 
             rectangleStates[position].handler = handler
@@ -127,6 +128,22 @@ class RectangleAdapter : RecyclerView.Adapter<RectangleAdapter.RectangleViewHold
             }
         }
 
+        // Check if all rectangles are done
+        fun areAllRectanglesDone(): Boolean {
+            for (state in rectangleStates) {
+                if (!state.isDone) {
+                    return false // If any rectangle is not done, return false
+                }
+            }
+            return true // All rectangles are done
+        }
+
+        // Update the checkbox state
+        fun updateCheckboxState() {
+            val view2 = LayoutInflater.from(itemView.context).inflate(R.layout.list_item, null, false)
+            val checkBox = view2.findViewById<CheckBox>(R.id.checkBox)
+            checkBox.isChecked = areAllRectanglesDone()
+        }
     }
 
 

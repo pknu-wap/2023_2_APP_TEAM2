@@ -1,10 +1,16 @@
 package com.example.habit2
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.CheckBox
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
@@ -77,6 +83,15 @@ class MainActivity : AppCompatActivity() {
             checkBox.isChecked = !checkBox.isChecked
         }
 
+        val homeButton = findViewById<ImageButton>(R.id.homeButton)
+
+        homeButton.setOnClickListener { // 이동하려는 링크 또는 액티비티로 이동하는 코드를 추가
+            // 예를 들어, 웹 페이지로 이동하려면 다음과 같이 설정:
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+
     }
     fun onListItemClick(view: View) {
         val position = habitListView.getPositionForView(view) // 클릭한 뷰의 위치 가져오기
@@ -104,4 +119,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
+
 }
