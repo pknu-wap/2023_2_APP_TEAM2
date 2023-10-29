@@ -1,24 +1,26 @@
 package com.example.habit2
 
+import android.content.Context
 import android.os.Handler
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import android.widget.ProgressBar
 import androidx.room.Room
 import kotlinx.coroutines.NonDisposableHandle.parent
 
 
-
-
 data class RectangleState(var isDone: Boolean, var handler: Handler? = null)
 
-class RectangleAdapter : RecyclerView.Adapter<RectangleAdapter.RectangleViewHolder>() {
+class RectangleAdapter(private val progressBarUtil: ProgressBarUtil) : RecyclerView.Adapter<RectangleAdapter.RectangleViewHolder>() {
     private val rectangleStates = ArrayList<RectangleState>()
     private var lastClickedPosition: Int = -1
-
 
     init {
         for (i in 1..66) {
@@ -56,6 +58,7 @@ class RectangleAdapter : RecyclerView.Adapter<RectangleAdapter.RectangleViewHold
                 stopResetHandler(position)
             }
 
+
             itemView.setOnClickListener {
                 if (lastClickedPosition == position) {
                     // 클릭한 항목이 이미 최근에 클릭한 항목인 경우, 상태를 반전시킴
@@ -66,9 +69,12 @@ class RectangleAdapter : RecyclerView.Adapter<RectangleAdapter.RectangleViewHold
 
                     if (newState.isDone) {
                         startResetHandler(position)
+                        progressBarUtil.incrementProgress()
                     } else {
                         stopResetHandler(position)
+                        progressBarUtil.resetProgress()
                     }
+
                     lastClickedPosition -=1
                 } else if (lastClickedPosition == -1 || lastClickedPosition + 1 == position) {
                     // 새로운 항목을 클릭한 경우
@@ -79,14 +85,19 @@ class RectangleAdapter : RecyclerView.Adapter<RectangleAdapter.RectangleViewHold
 
                     if (newState.isDone) {
                         startResetHandler(position)
+                        progressBarUtil.incrementProgress()
                     } else {
                         stopResetHandler(position)
+                        progressBarUtil.resetProgress()
                     }
 
                     lastClickedPosition = position
+
                 } else {
                     // 순서가 잘못된 경우에 대한 처리
-                    // 여기에서 알림을 표시하거나 작업을 취소할 수 있음
+                    val toast = Toast.makeText(itemView.context, "바로 옆의 BOX만 선택할 수 있습니다", Toast.LENGTH_SHORT)
+                    toast.setGravity(Gravity.CENTER, 0, 0)
+                    toast.show()
                 }
                 updateCheckboxState()
             }
@@ -106,7 +117,8 @@ class RectangleAdapter : RecyclerView.Adapter<RectangleAdapter.RectangleViewHold
                     }
                 }
                 notifyDataSetChanged()
-                lastClickedPosition = -1 // 모든 사각형을 클릭할 때 초기화
+                lastClickedPosition = -1 //  초기화
+                progressBarUtil.allresetProgress()
                 updateCheckboxState()
             }
 

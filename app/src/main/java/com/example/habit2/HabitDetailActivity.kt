@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -40,10 +41,18 @@ class HabitDetailActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         val layoutManager = GridLayoutManager(this, 10) // 예: 5열로 그리드 표시
-        val adapter = RectangleAdapter()
+
+        // ProgressBar 초기화
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar) // ProgressBar View 참조
+        val progressBarUtil = ProgressBarUtil(progressBar)
+        val adapter = RectangleAdapter(progressBarUtil)
+
+        //val adapter = RectangleAdapter()
 
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
+
+
 
         val homeButton = findViewById<ImageButton>(R.id.homeButton)
 
