@@ -11,6 +11,8 @@ import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.example.gogo.R
+import com.example.gogo.habit2.habit.data.Habit
+import com.example.gogo.habit2.habit.data.HabitDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

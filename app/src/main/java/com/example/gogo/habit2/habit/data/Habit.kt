@@ -1,4 +1,4 @@
-package com.example.habit2
+package com.example.gogo.habit2.habit.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

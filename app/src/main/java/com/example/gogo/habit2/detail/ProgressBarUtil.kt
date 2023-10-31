@@ -1,4 +1,4 @@
-package com.example.habit2
+package com.example.gogo.habit2.detail
 
 import android.os.Handler
 import android.widget.ProgressBar

@@ -1,8 +1,6 @@
-package com.example.habit2
+package com.example.gogo.habit2.detail.data
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 

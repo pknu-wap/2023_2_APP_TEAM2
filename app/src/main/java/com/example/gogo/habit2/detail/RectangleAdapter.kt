@@ -1,20 +1,15 @@
-package com.example.habit2
+package com.example.gogo.habit2.detail
 
-import android.content.Context
 import android.os.Handler
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import android.widget.ProgressBar
-import androidx.room.Room
 import com.example.gogo.R
-import kotlinx.coroutines.NonDisposableHandle.parent
 
 
 data class RectangleState(var isDone: Boolean, var handler: Handler? = null)

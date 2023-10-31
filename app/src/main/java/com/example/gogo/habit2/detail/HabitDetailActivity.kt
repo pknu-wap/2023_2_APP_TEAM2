@@ -1,26 +1,27 @@
-package com.example.habit2
+package com.example.gogo.habit2.detail
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.TableLayout
-import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gogo.R
+import com.example.gogo.habit2.habit.data.HabitActivity
 
 class HabitDetailActivity : AppCompatActivity() {
     private lateinit var habitNameTextView: TextView
     private var isDoneState = false  // 상태 변수 (초기 상태: "none")
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_habit_detail) // 새로운 화면의 레이아웃 파일을 설정
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         // 네비게이션 바를 숨김
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -59,7 +60,7 @@ class HabitDetailActivity : AppCompatActivity() {
 
         homeButton.setOnClickListener { // 이동하려는 링크 또는 액티비티로 이동하는 코드를 추가
             // 예를 들어, 웹 페이지로 이동하려면 다음과 같이 설정:
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, HabitActivity::class.java)
             startActivity(intent)
         }
 

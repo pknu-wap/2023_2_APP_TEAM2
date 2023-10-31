@@ -1,7 +1,6 @@
-package com.example.habit2
+package com.example.gogo.habit2.habit.data
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -12,14 +11,16 @@ import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.room.Room
 import com.example.gogo.R
+import com.example.gogo.habit2.detail.HabitDetailActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class MainActivity : AppCompatActivity() {
+class HabitActivity : AppCompatActivity() {
     private val habitList = ArrayList<String>()
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var habitListView: ListView
@@ -32,7 +33,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_habit)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         // 네비게이션 바를 숨김
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
 
@@ -88,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 
         homeButton.setOnClickListener { // 이동하려는 링크 또는 액티비티로 이동하는 코드를 추가
             // 예를 들어, 웹 페이지로 이동하려면 다음과 같이 설정:
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, HabitActivity::class.java)
             startActivity(intent)
         }
 

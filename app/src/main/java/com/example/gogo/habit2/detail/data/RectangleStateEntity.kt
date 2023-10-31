@@ -1,4 +1,4 @@
-package com.example.habit2
+package com.example.gogo.habit2.detail.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
