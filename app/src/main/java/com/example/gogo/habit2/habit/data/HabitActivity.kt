@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.room.Room
 import com.example.gogo.R
 import com.example.gogo.habit2.detail.HabitDetailActivity
+import com.example.gogo2.MyPageActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -34,11 +35,11 @@ class HabitActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_habit)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         // 네비게이션 바를 숨김
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
 
-    // 화면이 터치될 때마다 네비게이션 바를 다시 숨김
+        // 화면이 터치될 때마다 네비게이션 바를 다시 숨김
         window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
             if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
                 // 네비게이션 바가 나타나면 다시 숨김
@@ -86,11 +87,18 @@ class HabitActivity : AppCompatActivity() {
             checkBox.isChecked = !checkBox.isChecked
         }
 
+        //페이지 전환
         val homeButton = findViewById<ImageButton>(R.id.homeButton)
-
         homeButton.setOnClickListener { // 이동하려는 링크 또는 액티비티로 이동하는 코드를 추가
             // 예를 들어, 웹 페이지로 이동하려면 다음과 같이 설정:
             val intent = Intent(this, HabitActivity::class.java)
+            startActivity(intent)
+        }
+
+        val myPageButton = findViewById<Button>(R.id.myPageButton)
+        myPageButton.setOnClickListener { // 이동하려는 링크 또는 액티비티로 이동하는 코드를 추가
+            // 예를 들어, 웹 페이지로 이동하려면 다음과 같이 설정:
+            val intent = Intent(this, MyPageActivity::class.java)
             startActivity(intent)
         }
 

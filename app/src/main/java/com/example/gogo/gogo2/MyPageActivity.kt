@@ -21,9 +21,11 @@ import androidx.core.content.ContextCompat
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton
 import android.widget.LinearLayout;
 import com.example.gogo.R
 import com.example.gogo.databinding.ActivityMypageBinding
+import com.example.gogo.habit2.habit.data.HabitActivity
 
 
 class MyPageActivity : AppCompatActivity() {
@@ -38,6 +40,15 @@ class MyPageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMypageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // 네비게이션 바를 숨김
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
+        // 화면이 터치될 때마다 네비게이션 바를 다시 숨김
+        window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
+            if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
+                // 네비게이션 바가 나타나면 다시 숨김
+                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
+            }
+        }
 
         binding.cameraBtn.setOnClickListener {
             val intent = Intent(applicationContext, MyPageActivity::class.java)
@@ -52,6 +63,20 @@ class MyPageActivity : AppCompatActivity() {
         val picture = findViewById<Button>(R.id.galleryBtn)
         picture.setOnClickListener {
             GetAlbum()
+        }
+        //페이지 전환
+        val homeButton = findViewById<ImageButton>(R.id.homeButton)
+        homeButton.setOnClickListener { // 이동하려는 링크 또는 액티비티로 이동하는 코드를 추가
+            // 예를 들어, 웹 페이지로 이동하려면 다음과 같이 설정:
+            val intent = Intent(this, HabitActivity::class.java)
+            startActivity(intent)
+        }
+
+        val myPageButton = findViewById<Button>(R.id.myPageButton)
+        myPageButton.setOnClickListener { // 이동하려는 링크 또는 액티비티로 이동하는 코드를 추가
+            // 예를 들어, 웹 페이지로 이동하려면 다음과 같이 설정:
+            val intent = Intent(this, MyPageActivity::class.java)
+            startActivity(intent)
         }
     }
 
