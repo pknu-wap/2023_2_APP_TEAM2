@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/listItemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+   >
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingEnd="6dp" />
+
+    <TextView
+        android:id="@+id/habitTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:textSize="16sp"
+        android:clickable="true"
+        android:onClick="onListItemClick"/>
+
+    <Button
+        android:id="@+id/removeButton"
+        android:layout_width="38dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:onClick="onRemoveButtonClick"
+        android:text="X"
+        android:textColor="#4FBFCD"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        app:backgroundTint="#DFFBFF" />
+</LinearLayout>
