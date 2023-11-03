@@ -43,12 +43,16 @@ class HabitDetailActivity : AppCompatActivity() {
         habitNameTextView.text = habitName
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        val layoutManager = GridLayoutManager(this, 10) // 예: 5열로 그리드 표시
+        val layoutManager = GridLayoutManager(this, 10)
 
         // ProgressBar 초기화
         val progressBar = findViewById<ProgressBar>(R.id.progressBar) // ProgressBar View 참조
         val progressBarUtil = ProgressBarUtil(progressBar)
-        val adapter = RectangleAdapter(progressBarUtil)
+        // activity_habit_detail.xml에서 currentstate_number 텍스트뷰 찾기
+        val currentstatus_number = findViewById<TextView>(R.id.currentstatus_number)
+        val remainingdays_number = findViewById<TextView>(R.id.remainingdays_number)
+        val habitProgressManager = HabitProgressManager(currentstatus_number,remainingdays_number)
+        val adapter = RectangleAdapter(progressBarUtil, habitProgressManager)
 
         //val adapter = RectangleAdapter()
 

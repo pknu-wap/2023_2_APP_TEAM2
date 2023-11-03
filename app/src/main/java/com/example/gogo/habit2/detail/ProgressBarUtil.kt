@@ -21,7 +21,6 @@ class ProgressBarUtil(private val progressBar: ProgressBar) {
 
     fun resetProgress() {
         isResetting.set(true)
-        // 1/66 비율로 초기화
         progress--
         progressBar.progress = progress
     }

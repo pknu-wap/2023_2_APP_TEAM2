@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gogo.R
@@ -14,9 +15,10 @@ import com.example.gogo.R
 
 data class RectangleState(var isDone: Boolean, var handler: Handler? = null)
 
-class RectangleAdapter(private val progressBarUtil: ProgressBarUtil) : RecyclerView.Adapter<RectangleAdapter.RectangleViewHolder>() {
+class RectangleAdapter(private val progressBarUtil: ProgressBarUtil,private val habitProgressManager: HabitProgressManager) : RecyclerView.Adapter<RectangleAdapter.RectangleViewHolder>() {
     private val rectangleStates = ArrayList<RectangleState>()
     private var lastClickedPosition: Int = -1
+
 
     init {
         for (i in 1..66) {
@@ -41,6 +43,7 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil) : RecyclerV
         private val imageViewNone: ImageView = itemView.findViewById(R.id.noneImageView)
         private val imageViewDone: ImageView = itemView.findViewById(R.id.doneImageView)
 
+
         fun bind(position: Int) {
             val isDoneState = rectangleStates[position].isDone
 
@@ -54,7 +57,6 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil) : RecyclerV
                 stopResetHandler(position)
             }
 
-
             itemView.setOnClickListener {
                 if (lastClickedPosition == position) {
                     // 클릭한 항목이 이미 최근에 클릭한 항목인 경우, 상태를 반전시킴
@@ -66,11 +68,12 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil) : RecyclerV
                     if (newState.isDone) {
                         startResetHandler(position)
                         progressBarUtil.incrementProgress()
+                        habitProgressManager.updateStatusNum()
                     } else {
                         stopResetHandler(position)
                         progressBarUtil.resetProgress()
+                        habitProgressManager.resetStatusNum()
                     }
-
                     lastClickedPosition -=1
                 } else if (lastClickedPosition == -1 || lastClickedPosition + 1 == position) {
                     // 새로운 항목을 클릭한 경우
@@ -82,9 +85,11 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil) : RecyclerV
                     if (newState.isDone) {
                         startResetHandler(position)
                         progressBarUtil.incrementProgress()
+                        habitProgressManager.updateStatusNum()
                     } else {
                         stopResetHandler(position)
                         progressBarUtil.resetProgress()
+                        habitProgressManager.resetStatusNum()
                     }
 
                     lastClickedPosition = position
@@ -115,6 +120,7 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil) : RecyclerV
                 notifyDataSetChanged()
                 lastClickedPosition = -1 //  초기화
                 progressBarUtil.allresetProgress()
+                habitProgressManager.allreset()
                 updateCheckboxState()
             }
 
@@ -135,6 +141,8 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil) : RecyclerV
                 currentState.handler = null
             }
         }
+
+
 
         // Check if all rectangles are done
         fun areAllRectanglesDone(): Boolean {
