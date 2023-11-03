@@ -58,11 +58,13 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil,private val 
             }
 
             itemView.setOnClickListener {
+
                 if (lastClickedPosition == position) {
                     // 클릭한 항목이 이미 최근에 클릭한 항목인 경우, 상태를 반전시킴
                     val currentState = rectangleStates[position]
                     val newState = RectangleState(isDone = !currentState.isDone, handler = null)
                     rectangleStates[position] = newState
+
                     notifyDataSetChanged()
 
                     if (newState.isDone) {
@@ -77,10 +79,13 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil,private val 
                     lastClickedPosition -=1
                 } else if (lastClickedPosition == -1 || lastClickedPosition + 1 == position) {
                     // 새로운 항목을 클릭한 경우
+                    remainingDays -= 1
+                    currentStatus += 1
                     val currentState = rectangleStates[position]
                     val newState = RectangleState(isDone = !currentState.isDone, handler = null)
                     rectangleStates[position] = newState
                     notifyDataSetChanged()
+
 
                     if (newState.isDone) {
                         startResetHandler(position)
@@ -100,6 +105,10 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil,private val 
                     toast.setGravity(Gravity.CENTER, 0, 0)
                     toast.show()
                 }
+
+
+
+
                 updateCheckboxState()
             }
         }
@@ -108,6 +117,9 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil,private val 
             stopAllResetHandlers()
             val handler = Handler()
             val resetDelay = 60 * 1000L // 1분(밀리초)
+
+            remainingDays = 66 //남은일수 초기화
+            currentStatus = 0 //달성현황 초기화
 
             val resetTask = Runnable {
                 for (i in 0 until rectangleStates.size) {
