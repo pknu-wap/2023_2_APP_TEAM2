@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeButton"
+        android:title="홈"
+        android:icon="@drawable/home_image"
+        />
+    <item
+        android:id="@+id/myPageButton"
+        android:title="마이페이지"
+        />
+
+
+</menu>

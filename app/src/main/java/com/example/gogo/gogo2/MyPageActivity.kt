@@ -1,6 +1,5 @@
 package com.example.gogo2
 
-import android.app.Application
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -11,7 +10,6 @@ import android.graphics.Bitmap
 import android.provider.MediaStore
 import android.widget.Toast
 import java.io.FileOutputStream
-import java.security.Permissions
 import java.text.SimpleDateFormat
 import android.app.Activity
 import android.net.Uri
@@ -22,10 +20,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton
-import android.widget.LinearLayout;
 import com.example.gogo.R
 import com.example.gogo.databinding.ActivityMypageBinding
-import com.example.gogo.habit2.habit.data.HabitActivity
+import com.example.gogo.habit2.habit.data.HabitFragment
 
 
 class MyPageActivity : AppCompatActivity() {
@@ -68,7 +65,7 @@ class MyPageActivity : AppCompatActivity() {
         val homeButton = findViewById<ImageButton>(R.id.homeButton)
         homeButton.setOnClickListener { // 이동하려는 링크 또는 액티비티로 이동하는 코드를 추가
             // 예를 들어, 웹 페이지로 이동하려면 다음과 같이 설정:
-            val intent = Intent(this, HabitActivity::class.java)
+            val intent = Intent(this, HabitFragment::class.java)
             startActivity(intent)
         }
 

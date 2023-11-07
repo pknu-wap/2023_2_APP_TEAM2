@@ -8,11 +8,10 @@ import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gogo.R
-import com.example.gogo.habit2.habit.data.HabitActivity
+import com.example.gogo.habit2.habit.data.HabitFragment
 import com.example.gogo2.MyPageActivity
 
 class HabitDetailActivity : AppCompatActivity() {
@@ -63,7 +62,7 @@ class HabitDetailActivity : AppCompatActivity() {
         val homeButton = findViewById<ImageButton>(R.id.homeButton)
         homeButton.setOnClickListener { // 이동하려는 링크 또는 액티비티로 이동하는 코드를 추가
             // 예를 들어, 웹 페이지로 이동하려면 다음과 같이 설정:
-            val intent = Intent(this, HabitActivity::class.java)
+            val intent = Intent(this, HabitFragment::class.java)
             startActivity(intent)
         }
 

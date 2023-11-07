@@ -60,6 +60,8 @@ dependencies {
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:2.6.0")
 
+    implementation("com.google.android.material:material:1.10.0")
+
 
 
     implementation("androidx.activity:activity-ktx:1.8.0")
@@ -67,6 +69,9 @@ dependencies {
 
     implementation("androidx.fragment:fragment-ktx:1.6.1")
     implementation("androidx.fragment:fragment:1.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+
 
     implementation("androidx.appcompat:appcompat:1.6.1")
 
