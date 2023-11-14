@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.example.gogo.databinding.ActivityMainBinding
+import com.example.gogo.habit2.detail.HabitDetailFragment
 import com.example.gogo.habit2.habit.data.HabitDatabase
 import com.example.gogo.habit2.habit.data.HabitFragment
 import kotlinx.coroutines.Dispatchers
@@ -33,6 +34,9 @@ class MainActivity : AppCompatActivity() {
 
                 MainViewModel.PageType.MYPAGE -> {
 
+                }
+                MainViewModel.PageType.HABIT_DETAIL -> {
+                    loadFragment(HabitDetailFragment())
                 }
             }
         }

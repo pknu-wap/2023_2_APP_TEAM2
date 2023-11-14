@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
     private var _fragmentStatus = MutableLiveData<PageType>()
+    private var _selectedHabitName = MutableLiveData<String>()
     val fragmentStatus: LiveData<PageType> get() = _fragmentStatus
+    val selectedHabitName : LiveData<String> get() = _selectedHabitName
 
     init {
         _fragmentStatus.value = PageType.HOME
@@ -19,6 +21,7 @@ class MainViewModel : ViewModel() {
 
     enum class PageType {
         HOME,
-        MYPAGE
+        MYPAGE,
+        HABIT_DETAIL
     }
 }

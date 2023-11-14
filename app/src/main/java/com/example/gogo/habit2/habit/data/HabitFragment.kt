@@ -1,74 +1,114 @@
 package com.example.gogo.habit2.habit.data
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.room.Room
-import com.example.gogo.R
+import androidx.fragment.app.activityViewModels
+import com.example.gogo.MainViewModel
 import com.example.gogo.databinding.FragmentHabitBinding
 
 
 class HabitFragment : Fragment() {
     private val habitList = ArrayList<String>()
-    private lateinit var adapter: ArrayAdapter<String>
-
-    private lateinit var binding: FragmentHabitBinding
+    private var habitDatabase: HabitDatabase? = null
+    private var _binding : FragmentHabitBinding? = null
+    private val mainViewModel : MainViewModel by activityViewModels()
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHabitBinding.inflate(inflater, container, false)
-        val habitListView = binding.habitListView
+        _binding = FragmentHabitBinding.inflate(inflater, container, false)
+        return binding.root
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         val addButton = binding.addButton
         val habitNameEditText = binding.habitNameEditText
 
-        adapter = ArrayAdapter(requireContext(), R.layout.list_item, R.id.habitTextView, habitList)
-        habitListView.adapter = adapter
 
-        habitListView.setOnItemClickListener { parent, view, position, id ->
-            // 해당 항목의 CheckBox 상태를 토글합니다.
-            val checkBox = view.findViewById<CheckBox>(R.id.checkBox)
-            checkBox.isChecked = !checkBox.isChecked
-        }
-        addButton.setOnClickListener {
-            val habitName = habitNameEditText.text.toString()
-            if (habitName.isNotEmpty()) {
-                val habit = Habit(name=habitName)
-//                GlobalScope.launch(Dispatchers.IO){
-//                    habitDatabase.habitDao().insertHabit(habit)
-//                }
-                habitList.add(habitName)
-                adapter.notifyDataSetChanged()
-                habitNameEditText.text.clear()
+        val testHabits = listOf("oo","Asdf")
+        val adapter = HabitAdapter(testHabits)
+
+        adapter.setOnItemClickListener(object : HabitAdapter.OnItemClickListener{
+            override fun onItemClick(view: View, position: Int) {
+                mainViewModel.updateFragmentStatus(MainViewModel.PageType.HABIT_DETAIL)
             }
-        }
 
-        
-        return binding.root
-    }
-    fun onRemoveButtonClick(view: View) {
-        val parent = view.parent as View
-        //val listItemLayout = parent.findViewById<LinearLayout>(R.id.listItemLayout) // 부모 레이아웃 찾기
-        val habitTextView = parent.findViewById<TextView>(R.id.habitTextView)
-        val habitName = habitTextView.text.toString()
+        })
 
-//        GlobalScope.launch(Dispatchers.IO) {
-//            habitDatabase.habitDao().deleteHabitByName(habitName)
-//            runOnUiThread {
-//                habitList.remove(habitName)
+        binding.habitList.adapter = adapter
+
+//        adapter = ArrayAdapter(requireContext(), R.layout.habit_list_item, R.id.habitTextView, habitList)
+
+
+//        habitListView.adapter = adapter
+
+//        habitDatabase = HabitDatabase.getInstance(requireContext())
+//        val habitNames = habitDatabase!!.habitDao().getAllHabits().map { it.name }
+//        habitList.addAll(habitNames)
+//
+//        habitListView.setOnItemClickListener { parent, view, position, id ->
+//            // 해당 항목의 CheckBox 상태를 토글합니다.
+//            val checkBox = view.findViewById<CheckBox>(R.id.checkBox)
+//            checkBox.isChecked = !checkBox.isChecked
+//        }
+//
+//
+//        addButton.setOnClickListener {
+//            val habitName = habitNameEditText.text.toString()
+//            if (habitName.isNotEmpty()) {
+//                val habit = Habit(name = habitName)
+//
+//                habitDatabase!!.habitDao().insertHabit(habit)
+//
+//                habitList.add(habitName)
 //                adapter.notifyDataSetChanged()
+//                habitNameEditText.text.clear()
 //            }
 //        }
+//        removeButton.setOnClickListener {
+//            val parent = it.parent as View
+//            val habitTextView = parent.findViewById<TextView>(R.id.habitTextView)
+//            val habitName = habitTextView.text.toString()
+//
+//            habitDatabase!!.habitDao().deleteHabitByName(habitName)
+//
+//            habitList.remove(habitName)
+//            adapter.notifyDataSetChanged()
+//        }
+       //return binding.root
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+//    fun onRemoveButtonClick(view: View) {
+//        val parent = view.parent as View
+//        //val listItemLayout = parent.findViewById<LinearLayout>(R.id.listItemLayout) // 부모 레이아웃 찾기
+//        val habitTextView = parent.findViewById<TextView>(R.id.habitTextView)
+//        val habitName = habitTextView.text.toString()
+//
+//        habitDatabase!!.habitDao().deleteHabitByName(habitName)
+//
+//        habitList.remove(habitName)
+//        adapter.notifyDataSetChanged()
+//
+////        GlobalScope.launch(Dispatchers.IO) {
+////            habitDatabase.habitDao().deleteHabitByName(habitName)
+////            runOnUiThread {
+////                habitList.remove(habitName)
+////                adapter.notifyDataSetChanged()
+////            }
+////        }
+//    }
 
     //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)

@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".habit2.detail.HabitDetailActivity"
+            android:name=".habit2.detail.HabitDetailFragment"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light">
             <intent-filter>

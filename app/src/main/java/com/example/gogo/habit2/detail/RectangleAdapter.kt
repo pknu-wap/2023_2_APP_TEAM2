@@ -5,9 +5,9 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.CheckBox
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gogo.R
@@ -15,10 +15,10 @@ import com.example.gogo.R
 
 data class RectangleState(var isDone: Boolean, var handler: Handler? = null)
 
+
 class RectangleAdapter(private val progressBarUtil: ProgressBarUtil,private val habitProgressManager: HabitProgressManager) : RecyclerView.Adapter<RectangleAdapter.RectangleViewHolder>() {
     private val rectangleStates = ArrayList<RectangleState>()
     private var lastClickedPosition: Int = -1
-
 
     init {
         for (i in 1..66) {
@@ -163,7 +163,7 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil,private val 
 
         // Update the checkbox state
         fun updateCheckboxState() {
-            val view2 = LayoutInflater.from(itemView.context).inflate(R.layout.list_item, null, false)
+            val view2 = LayoutInflater.from(itemView.context).inflate(R.layout.habit_list_item, null, false)
             val checkBox = view2.findViewById<CheckBox>(R.id.checkBox)
             checkBox.isChecked = areAllRectanglesDone()
         }

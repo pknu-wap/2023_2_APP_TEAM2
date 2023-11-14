@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:padding="20dp">
 
+
     <EditText
         android:id="@+id/habitNameEditText"
         android:layout_width="match_parent"
@@ -27,11 +28,13 @@
         android:text="Add"
         app:backgroundTint="#70E4F3" />
 
-    <ListView
-        android:id="@+id/habitListView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/habitList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:divider="@android:color/transparent"
+        tools:listitem="@layout/habit_list_item"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_weight="1" />
 
     <LinearLayout
