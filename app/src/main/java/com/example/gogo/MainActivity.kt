@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.navigationView.setBackgroundColor(resources.getColor(R.color.NavigationColor))
         mainViewModel.fragmentStatus.observe(this) {
             when (it) {
                 MainViewModel.PageType.HOME -> {
@@ -97,6 +98,7 @@ class MainActivity : AppCompatActivity() {
             false
         }
     }
+
 
     private fun hideActionBar(){
         supportActionBar?.hide()
