@@ -1,28 +1,16 @@
 package com.example.gogo.habit2.detail
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.gogo.MainViewModel
-import com.example.gogo.R
-import com.example.gogo.databinding.FragmentHabitBinding
 import com.example.gogo.databinding.FragmentHabitDetailBinding
-import com.example.gogo.habit2.habit.data.HabitFragment
-import com.example.gogo2.MyPageActivity
 
 class HabitDetailFragment : Fragment() {
-    private lateinit var habitNameTextView: TextView
-    private var isDoneState = false  // 상태 변수 (초기 상태: "none")
     private lateinit var binding: FragmentHabitDetailBinding
 
     private val mainViewModel : MainViewModel by activityViewModels()
@@ -36,23 +24,30 @@ class HabitDetailFragment : Fragment() {
 
         val recyclerView = binding.recyclerView
 
+        val layoutManager = GridLayoutManager(context,10)
+        recyclerView.layoutManager = layoutManager
+
         binding.habitNameTextView.text = mainViewModel.selectedHabitName.value
 
-        // ProgressBar 초기화
+
+//         ProgressBar 초기화
         val progressBar = binding.progressBar // ProgressBar View 참조
         val progressBarUtil = ProgressBarUtil(progressBar)
 
         // activity_habit_detail.xml에서 currentstate_number 텍스트뷰 찾기
         val currentstatus_number = binding.currentstatusNumber
         val remainingdays_number = binding.remainingdaysNumber
+
+
         val habitProgressManager = HabitProgressManager(currentstatus_number, remainingdays_number)
         val adapter = RectangleAdapter(progressBarUtil, habitProgressManager)
 
-        //val adapter = RectangleAdapter
         recyclerView.adapter = adapter
+
 
         return binding.root
     }
+
 }
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)

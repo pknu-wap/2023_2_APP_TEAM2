@@ -12,6 +12,7 @@ class MainViewModel : ViewModel() {
 
     init {
         _fragmentStatus.value = PageType.HOME
+        _selectedHabitName.value = "물 1L 마시기"
     }
 
     fun updateFragmentStatus(pageType: PageType) {

@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-    app:layout_constraintTop_toTopOf="parent"
-xmlns:app="http://schemas.android.com/apk/res-auto">
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/goalUpperMarginLayout"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    app:layout_constraintVertical_weight="1.0"
+    android:layout_height="match_parent"
     app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/goalLayout">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/habitNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:text="물 1L 마시기"
-        android:textColor="@color/black"
-        android:textSize="23dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.496" />
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/goalLayout"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_marginStart="40dp"
-    android:layout_marginEnd="40dp"
-    android:layout_marginBottom="30dp"
-    app:layout_constraintVertical_weight="1.0"
-    app:layout_constraintTop_toBottomOf="@id/goalUpperMarginLayout"
-    app:layout_constraintBottom_toTopOf="@id/currentStatusLayout">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/goalUpperMarginLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_rectangle"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="1.2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/goalLayout">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/habitNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="물 1L 마시기"
+            android:textColor="@color/black"
+            android:textSize="23dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.496" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/goalLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintVertical_weight="2.0"
+        app:layout_constraintTop_toBottomOf="@id/goalUpperMarginLayout"
+        app:layout_constraintBottom_toTopOf="@id/currentStatusLayout">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_rectangle"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/currentStatusLayout"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    app:layout_constraintVertical_weight="0.6"
-    app:layout_constraintTop_toBottomOf="@id/goalLayout"
-    app:layout_constraintBottom_toTopOf="@id/remainingDaysLayout">
+        android:id="@+id/currentStatusLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="0.6"
+        app:layout_constraintTop_toBottomOf="@id/goalLayout"
+        app:layout_constraintBottom_toTopOf="@id/remainingDaysLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/currentStateStartLayout"
@@ -83,11 +83,11 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/currentStateEndLayout"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toEndOf="@id/currentStateStartLayout"
-        app:layout_constraintEnd_toEndOf="parent">
+            android:id="@+id/currentStateEndLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@id/currentStateStartLayout"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
                 android:id="@+id/currentstatus_fixed"
@@ -119,189 +119,154 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.51" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/remainingDaysLayout"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    app:layout_constraintVertical_weight="0.6"
-    app:layout_constraintTop_toBottomOf="@id/currentStatusLayout"
-    app:layout_constraintBottom_toTopOf="@id/remainingdaysMarginLayout">
-
-    <TextView
-        android:id="@+id/remaningdays_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="남은 일 수"
-        android:textColor="@android:color/black"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.534" />
-
-    <TextView
-        android:id="@+id/remainingdays_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="43"
-        android:textColor="#22A7E4"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toEndOf="@id/remaningdays_textview"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/remainingdaysMarginLayout"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    app:layout_constraintVertical_weight="0.4"
-    app:layout_constraintTop_toBottomOf="@id/remainingDaysLayout"
-    app:layout_constraintBottom_toTopOf="@id/achievementRateLayout">
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/achievementRateLayout"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    app:layout_constraintVertical_weight="0.6"
-    app:layout_constraintTop_toBottomOf="@id/remainingdaysMarginLayout"
-    app:layout_constraintBottom_toTopOf="@id/LowerMarginLayout">
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/achievementrateStartLayout"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/achievementrateEndLayout">
+        android:id="@+id/remainingDaysLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="0.6"
+        app:layout_constraintTop_toBottomOf="@id/currentStatusLayout"
+        app:layout_constraintBottom_toTopOf="@id/remainingdaysMarginLayout">
 
         <TextView
-            android:id="@+id/achievementrate_textview"
+            android:id="@+id/remaningdays_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="달성률"
-            android:textColor="@color/black"
+            android:text="남은 일 수"
+            android:textColor="@android:color/black"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.366"
+            app:layout_constraintHorizontal_bias="0.15"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.488" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/achievementrateEndLayout"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toEndOf="@id/achievementrateStartLayout"
-        app:layout_constraintEnd_toEndOf="parent">
-
+            app:layout_constraintVertical_bias="0.534" />
 
         <TextView
-            android:id="@+id/achievementrate_number"
+            android:id="@+id/remainingdays_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="26"
+            android:text="43"
             android:textColor="#22A7E4"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.584"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.489" />
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintStart_toEndOf="@id/remaningdays_textview"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/achievementrate_fixed"
-            android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/remainingdaysMarginLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="0.4"
+        app:layout_constraintTop_toBottomOf="@id/remainingDaysLayout"
+        app:layout_constraintBottom_toTopOf="@id/achievementRateLayout">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="%"
-            android:textColor="#22A7E4"
-            android:textSize="20dp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@id/achievementrate_number"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.666" />
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/LowerMarginLayout"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    app:layout_constraintVertical_weight="0.6"
-    app:layout_constraintTop_toBottomOf="@id/achievementRateLayout"
-    app:layout_constraintBottom_toBottomOf="parent">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/achievementRateLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="0.6"
+        app:layout_constraintTop_toBottomOf="@id/remainingdaysMarginLayout"
+        app:layout_constraintBottom_toTopOf="@id/LowerMarginLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/achievementrateStartLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/achievementrateEndLayout">
+
+            <TextView
+                android:id="@+id/achievementrate_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="달성률"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.366"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.488" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/achievementrateEndLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@id/achievementrateStartLayout"
+            app:layout_constraintEnd_toEndOf="parent">
+
+
+            <TextView
+                android:id="@+id/achievementrate_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="26"
+                android:textColor="#22A7E4"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.584"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.489" />
+
+            <TextView
+                android:id="@+id/achievementrate_fixed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="%"
+                android:textColor="#22A7E4"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/achievementrate_number"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.666" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/LowerMarginLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="0.1"
+        app:layout_constraintTop_toBottomOf="@id/achievementRateLayout"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <ImageButton
-            android:id="@+id/homeButton"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="70dp"
-            android:layout_marginEnd="50dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="홈으로 가기"
-            android:scaleType="fitXY"
-            android:src="@drawable/home_image" />
-
-        <Button
-            android:id="@+id/myPageButton"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="55dp"
-            android:layout_marginEnd="50dp"
-            android:background="@android:color/transparent"
-            android:text="MY"
-            android:textColor="#70E4F3"
-            android:textSize="22dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

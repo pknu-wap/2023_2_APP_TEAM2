@@ -1,6 +1,7 @@
 package com.example.gogo.habit2.habit.data
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +45,24 @@ class HabitFragment : Fragment() {
         })
 
         binding.habitList.adapter = adapter
+
+//        // 데이터베이스 초기화
+//        habitDatabase = HabitDatabase.getInstance(requireContext())
+//
+//        //habitList, 데이터베이스에 습관 추가
+//        addButton.setOnClickListener {
+//            val habitName = habitNameEditText.text.toString()
+//            if (habitName.isNotEmpty()) {
+//                val habit = Habit(name = habitName)
+//                habitDatabase?.habitDao()?.insertHabit(habit)
+//
+//                habitList.add(habitName)
+//                adapter.notifyDataSetChanged()
+//                habitNameEditText.text.clear()
+//            }
+//        }
+
+
 
 //        adapter = ArrayAdapter(requireContext(), R.layout.habit_list_item, R.id.habitTextView, habitList)
 
@@ -210,6 +229,5 @@ class HabitFragment : Fragment() {
 //            }
 //        }
 //    }
-
 
 }

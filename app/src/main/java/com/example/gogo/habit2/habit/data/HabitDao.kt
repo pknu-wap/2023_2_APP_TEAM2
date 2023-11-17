@@ -10,6 +10,7 @@ interface HabitDao {
     @Query("SELECT * FROM habits")
     fun getAllHabits(): List<Habit>
 
+    @Transaction
     @Query("DELETE FROM habits WHERE name = :name")
     fun deleteHabitByName(name: String)
 }

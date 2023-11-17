@@ -99,7 +99,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun hideActionBar(){
         supportActionBar?.hide()
     }

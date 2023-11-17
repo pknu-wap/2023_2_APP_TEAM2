@@ -77,7 +77,8 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil,private val 
                         habitProgressManager.resetStatusNum()
                     }
                     lastClickedPosition -=1
-                } else if (lastClickedPosition == -1 || lastClickedPosition + 1 == position) {
+                }
+                else if (lastClickedPosition + 1 == position) {
                     // 새로운 항목을 클릭한 경우
                     val currentState = rectangleStates[position]
                     val newState = RectangleState(isDone = !currentState.isDone, handler = null)
@@ -97,9 +98,14 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil,private val 
 
                     lastClickedPosition = position
 
-                } else {
+                }
+                else {
+                    var errorMessage : String = "바로 옆의 BOX만 선택할 수 있습니다."
+                    if (lastClickedPosition == -1) {
+                        errorMessage = "첫번째 BOX부터 선택해주세요."
+                    }
                     // 순서가 잘못된 경우에 대한 처리
-                    val toast = Toast.makeText(itemView.context, "바로 옆의 BOX만 선택할 수 있습니다", Toast.LENGTH_SHORT)
+                    val toast = Toast.makeText(itemView.context, errorMessage, Toast.LENGTH_SHORT)
                     toast.setGravity(Gravity.CENTER, 0, 0)
                     toast.show()
                 }

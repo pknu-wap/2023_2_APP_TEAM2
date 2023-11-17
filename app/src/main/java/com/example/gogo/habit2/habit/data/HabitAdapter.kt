@@ -1,5 +1,6 @@
 package com.example.gogo.habit2.habit.data
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import com.example.gogo.databinding.HabitListItemBinding
 
 class HabitAdapter(private val itemList: List<String>) :RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
     private lateinit var mOnItemClickListener: OnItemClickListener
-
+    private var habitDatabase: HabitDatabase? = null
     inner class HabitViewHolder(private val binding: HabitListItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.habitTextView.apply {
