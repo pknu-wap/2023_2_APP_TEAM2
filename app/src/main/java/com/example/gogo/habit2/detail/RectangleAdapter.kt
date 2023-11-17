@@ -1,6 +1,7 @@
 package com.example.gogo.habit2.detail
 
 import android.os.Handler
+import android.os.Looper
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,7 @@ import com.example.gogo.R
 data class RectangleState(var isDone: Boolean, var handler: Handler? = null)
 
 
-class RectangleAdapter(private val progressBarUtil: ProgressBarUtil,private val habitProgressManager: HabitProgressManager) : RecyclerView.Adapter<RectangleAdapter.RectangleViewHolder>() {
+class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val habitProgressManager: HabitProgressManager,private val achievementManager:AchievementManager) : RecyclerView.Adapter<RectangleAdapter.RectangleViewHolder>() {
     private val rectangleStates = ArrayList<RectangleState>()
     private var lastClickedPosition: Int = -1
 
@@ -71,10 +72,12 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil,private val 
                         startResetHandler(position)
                         progressBarUtil.incrementProgress()
                         habitProgressManager.updateStatusNum()
+                        achievementManager.updateAchiveRate()
                     } else {
                         stopResetHandler(position)
                         progressBarUtil.resetProgress()
                         habitProgressManager.resetStatusNum()
+                        achievementManager.resetAchiveRate()
                     }
                     lastClickedPosition -=1
                 }
@@ -85,19 +88,19 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil,private val 
                     rectangleStates[position] = newState
                     notifyDataSetChanged()
 
-
                     if (newState.isDone) {
                         startResetHandler(position)
                         progressBarUtil.incrementProgress()
                         habitProgressManager.updateStatusNum()
+                        achievementManager.updateAchiveRate()
                     } else {
                         stopResetHandler(position)
                         progressBarUtil.resetProgress()
                         habitProgressManager.resetStatusNum()
+                        achievementManager.resetAchiveRate()
                     }
 
                     lastClickedPosition = position
-
                 }
                 else {
                     var errorMessage : String = "바로 옆의 BOX만 선택할 수 있습니다."
@@ -109,17 +112,13 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil,private val 
                     toast.setGravity(Gravity.CENTER, 0, 0)
                     toast.show()
                 }
-
-
-
-
                 updateCheckboxState()
             }
         }
 
         private fun startResetHandler(position: Int) {
             stopAllResetHandlers()
-            val handler = Handler()
+            val handler = Handler(Looper.getMainLooper())
             val resetDelay = 60 * 1000L // 1분(밀리초)
 
             val resetTask = Runnable {

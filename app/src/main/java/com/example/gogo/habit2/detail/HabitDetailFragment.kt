@@ -37,10 +37,12 @@ class HabitDetailFragment : Fragment() {
         // activity_habit_detail.xml에서 currentstate_number 텍스트뷰 찾기
         val currentstatus_number = binding.currentstatusNumber
         val remainingdays_number = binding.remainingdaysNumber
+        val achievementrate_number = binding.achievementrateNumber
 
 
         val habitProgressManager = HabitProgressManager(currentstatus_number, remainingdays_number)
-        val adapter = RectangleAdapter(progressBarUtil, habitProgressManager)
+        val achievementManager = AchievementManager(achievementrate_number)
+        val adapter = RectangleAdapter(progressBarUtil, habitProgressManager, achievementManager)
 
         recyclerView.adapter = adapter
 
