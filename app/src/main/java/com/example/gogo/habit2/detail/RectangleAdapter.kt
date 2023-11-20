@@ -1,5 +1,6 @@
 package com.example.gogo.habit2.detail
 
+import android.app.AlertDialog
 import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
@@ -99,8 +100,11 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
                         habitProgressManager.resetStatusNum()
                         achievementManager.resetAchieveRate()
                     }
-
                     lastClickedPosition = position
+
+                    if (position == itemCount - 1) {
+                        showCongratulationsDialog()
+                    }
                 }
                 else {
                     var errorMessage : String = "바로 옆의 BOX만 선택할 수 있습니다."
@@ -114,6 +118,23 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
                 }
                 updateCheckboxState()
             }
+        }
+        private fun showCongratulationsDialog() {
+            val alertDialogBuilder = AlertDialog.Builder(itemView.context)
+
+            // 다이얼로그 타이틀 및 메시지 설정
+            alertDialogBuilder.setTitle("축하합니다!")
+            alertDialogBuilder.setMessage("66일을 수행하여 습관을 달성하셨습니다.")
+
+            // 다이얼로그의 "확인" 버튼 설정 및 클릭 이벤트 처리
+            alertDialogBuilder.setPositiveButton("확인") { dialog, _ ->
+                // 다이얼로그를 닫거나 추가적인 동작을 수행할 수 있음
+                dialog.dismiss()
+            }
+
+            // 다이얼로그 생성 및 보이기
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog.show()
         }
 
         private fun startResetHandler(position: Int) {

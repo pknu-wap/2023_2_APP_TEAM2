@@ -24,7 +24,7 @@ class HabitDetailFragment : Fragment() {
 
         val recyclerView = binding.recyclerView
 
-        val layoutManager = GridLayoutManager(context,10)
+        val layoutManager = GridLayoutManager(context,12)
         recyclerView.layoutManager = layoutManager
 
         binding.habitNameTextView.text = mainViewModel.selectedHabitName.value
