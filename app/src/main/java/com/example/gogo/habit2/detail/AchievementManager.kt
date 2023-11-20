@@ -10,16 +10,20 @@ class AchievementManager(private val achievementrate_number: TextView) {
     init {
         updateTextViews()
     }
-    fun updateAchiveRate() {
+    fun updateAchieveRate() {
         progress++
         achievementrateNumber = progress.toDouble() / maxProgress * 100
         updateTextViews()
     }
 
-    fun resetAchiveRate() {
+    fun resetAchieveRate() {
         progress--
         achievementrateNumber = progress.toDouble() / maxProgress * 100
         updateTextViews()
+    }
+
+    fun allresetAchieveRate() {
+        achievementrateNumber = 0.0
     }
 
     private fun updateTextViews() {

@@ -14,6 +14,7 @@
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:buttonTint="#70E4F3"
         android:paddingEnd="6dp" />
 
     <TextView

@@ -9,7 +9,7 @@
     <item
         android:id="@+id/myPageButton"
         android:title="마이페이지"
+        android:icon="@drawable/mypage_image"
         />
-
 
 </menu>

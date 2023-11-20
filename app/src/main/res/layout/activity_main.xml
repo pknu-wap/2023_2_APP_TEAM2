@@ -18,8 +18,11 @@
         android:id="@+id/navigationView"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:padding="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navi_menu"
+        app:itemIconTint="@drawable/menu_selector_color"
+        app:itemTextColor="@drawable/menu_selector_color"
         app:labelVisibilityMode="labeled"
         />
 

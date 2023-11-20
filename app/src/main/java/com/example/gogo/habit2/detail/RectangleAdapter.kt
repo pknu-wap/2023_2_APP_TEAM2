@@ -72,12 +72,12 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
                         startResetHandler(position)
                         progressBarUtil.incrementProgress()
                         habitProgressManager.updateStatusNum()
-                        achievementManager.updateAchiveRate()
+                        achievementManager.updateAchieveRate()
                     } else {
                         stopResetHandler(position)
                         progressBarUtil.resetProgress()
                         habitProgressManager.resetStatusNum()
-                        achievementManager.resetAchiveRate()
+                        achievementManager.resetAchieveRate()
                     }
                     lastClickedPosition -=1
                 }
@@ -92,12 +92,12 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
                         startResetHandler(position)
                         progressBarUtil.incrementProgress()
                         habitProgressManager.updateStatusNum()
-                        achievementManager.updateAchiveRate()
+                        achievementManager.updateAchieveRate()
                     } else {
                         stopResetHandler(position)
                         progressBarUtil.resetProgress()
                         habitProgressManager.resetStatusNum()
-                        achievementManager.resetAchiveRate()
+                        achievementManager.resetAchieveRate()
                     }
 
                     lastClickedPosition = position
@@ -133,6 +133,7 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
                 lastClickedPosition = -1 //  초기화
                 progressBarUtil.allresetProgress()
                 habitProgressManager.allreset()
+                achievementManager.allresetAchieveRate()
                 updateCheckboxState()
             }
 
