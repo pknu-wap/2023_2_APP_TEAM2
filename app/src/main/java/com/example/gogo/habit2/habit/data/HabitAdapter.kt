@@ -13,6 +13,7 @@ import com.example.gogo.databinding.HabitListItemBinding
 
 class HabitAdapter(private val itemList: List<String>) :RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
     private lateinit var mOnItemClickListener: OnItemClickListener
+    private lateinit var mOnRemoveItemClickListener: OnItemClickListener
     private var habitDatabase: HabitDatabase? = null
     inner class HabitViewHolder(private val binding: HabitListItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
@@ -23,13 +24,17 @@ class HabitAdapter(private val itemList: List<String>) :RecyclerView.Adapter<Hab
              }
             }
             binding.checkBox
-            binding.removeButton
+            binding.removeButton.setOnClickListener {
+                val removeHabit = itemList[position]
+                mOnItemClickListener.onRemoveItemClick(it, removeHabit)
+            }
         }
     }
 
 
     interface OnItemClickListener  {
         fun onItemClick(view: View, position: Int)
+        fun onRemoveItemClick(view: View, habitName : String)
     }
 
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener){

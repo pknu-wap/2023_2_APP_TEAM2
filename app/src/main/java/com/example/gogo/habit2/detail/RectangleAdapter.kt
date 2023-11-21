@@ -122,17 +122,12 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
         private fun showCongratulationsDialog() {
             val alertDialogBuilder = AlertDialog.Builder(itemView.context)
 
-            // 다이얼로그 타이틀 및 메시지 설정
             alertDialogBuilder.setTitle("축하합니다!")
             alertDialogBuilder.setMessage("66일을 수행하여 습관을 달성하셨습니다.")
-
             // 다이얼로그의 "확인" 버튼 설정 및 클릭 이벤트 처리
             alertDialogBuilder.setPositiveButton("확인") { dialog, _ ->
-                // 다이얼로그를 닫거나 추가적인 동작을 수행할 수 있음
                 dialog.dismiss()
             }
-
-            // 다이얼로그 생성 및 보이기
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
         }

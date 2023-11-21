@@ -7,16 +7,22 @@ import androidx.lifecycle.ViewModel
 class MainViewModel : ViewModel() {
     private var _fragmentStatus = MutableLiveData<PageType>()
     private var _selectedHabitName = MutableLiveData<String>()
+    private var _currentStatus = MutableLiveData<Int>()
     val fragmentStatus: LiveData<PageType> get() = _fragmentStatus
     val selectedHabitName : LiveData<String> get() = _selectedHabitName
-
+    val currentStatus: LiveData<Int> get() = _currentStatus
     init {
         _fragmentStatus.value = PageType.HOME
         _selectedHabitName.value = "물 1L 마시기"
+        _currentStatus.value = 0
     }
 
     fun updateFragmentStatus(pageType: PageType) {
         _fragmentStatus.value = pageType
+    }
+
+    fun updatehabitDays(newStatus: Int) {
+        _currentStatus.value = newStatus
     }
 
 
