@@ -6,19 +6,32 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabas하하하e
+import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    version = 1,
-    entities = [Habit::class]
+    version = 2,
+    entities = [Habit::class],
+    exportSchema = false
+//    autoMigrations = [
+//        AutoMigration(
+//            from = 1,
+//            to = 2
+//        )
+//    ],
+//    exportSchema = true
 )
 abstract class HabitDatabase : RoomDatabase() {
 
     abstract fun habitDao(): HabitDao
-//    abstract fun habitDetailDao() : HabitDetailDao
     companion object {
         private var instance: HabitDatabase? = null
-
+        private val MIGRATION_1_TO_2: Migration = object : Migration(1,2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.run {
+                    execSQL("ALTER TABLE habits ADD habitDaysCompleted INTEGER NOT NULL DEFAULT 0")
+                }
+            }
+        }
 
         @Synchronized
         fun getInstance(context: Context): HabitDatabase? {
@@ -28,7 +41,8 @@ abstract class HabitDatabase : RoomDatabase() {
                         context.applicationContext,
                         HabitDatabase::class.java,
                         "Habit-database"
-                    ).allowMainThreadQueries().build()
+                    ).addMigrations(MIGRATION_1_TO_2).allowMainThreadQueries().fallbackToDestructiveMigration()
+                        .build()
                 }
             }
             return instance

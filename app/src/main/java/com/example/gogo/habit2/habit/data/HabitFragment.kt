@@ -42,6 +42,8 @@ class HabitFragment : Fragment() {
 
         adapter.setOnItemClickListener(object : HabitAdapter.OnItemClickListener {
             override fun onItemClick(view: View, position: Int) {
+                val selectedHabitName = habitList[position]
+                mainViewModel.updateSelectedHabitName(selectedHabitName)
                 mainViewModel.updateFragmentStatus(MainViewModel.PageType.HABIT_DETAIL)
             }
 
@@ -73,7 +75,6 @@ class HabitFragment : Fragment() {
             }
         }
     }
-
     private fun loadHabitsFromDatabase() {
         GlobalScope.launch(Dispatchers.IO) {
             val habitsFromDatabase = habitDatabase?.habitDao()?.getAllHabits()
@@ -86,7 +87,6 @@ class HabitFragment : Fragment() {
             }
         }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

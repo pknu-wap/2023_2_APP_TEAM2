@@ -17,7 +17,6 @@ import com.example.gogo.R
 
 data class RectangleState(var isDone: Boolean, var handler: Handler? = null)
 
-
 class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val habitProgressManager: HabitProgressManager,private val achievementManager:AchievementManager) : RecyclerView.Adapter<RectangleAdapter.RectangleViewHolder>() {
     private val rectangleStates = ArrayList<RectangleState>()
     private var lastClickedPosition: Int = -1
@@ -116,7 +115,7 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
                     toast.setGravity(Gravity.CENTER, 0, 0)
                     toast.show()
                 }
-                updateCheckboxState()
+                //updateCheckboxState()
             }
         }
         private fun showCongratulationsDialog() {
@@ -150,7 +149,7 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
                 progressBarUtil.allresetProgress()
                 habitProgressManager.allreset()
                 achievementManager.allresetAchieveRate()
-                updateCheckboxState()
+                //updateCheckboxState()
             }
 
             rectangleStates[position].handler = handler
@@ -171,24 +170,22 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
             }
         }
 
-
-
-        // Check if all rectangles are done
-        fun areAllRectanglesDone(): Boolean {
-            for (state in rectangleStates) {
-                if (!state.isDone) {
-                    return false // If any rectangle is not done, return false
-                }
-            }
-            return true // All rectangles are done
-        }
-
-        // Update the checkbox state
-        fun updateCheckboxState() {
-            val view2 = LayoutInflater.from(itemView.context).inflate(R.layout.habit_list_item, null, false)
-            val checkBox = view2.findViewById<CheckBox>(R.id.checkBox)
-            checkBox.isChecked = areAllRectanglesDone()
-        }
+//        // Check if all rectangles are done
+//        fun areAllRectanglesDone(): Boolean {
+//            for (state in rectangleStates) {
+//                if (!state.isDone) {
+//                    return false // If any rectangle is not done, return false
+//                }
+//            }
+//            return true // All rectangles are done
+//        }
+//
+//        // Update the checkbox state
+//        fun updateCheckboxState() {
+//            val view2 = LayoutInflater.from(itemView.context).inflate(R.layout.habit_list_item, null, false)
+//            val checkBox = view2.findViewById<CheckBox>(R.id.checkBox)
+//            checkBox.isChecked = areAllRectanglesDone()
+//        }
     }
 
 

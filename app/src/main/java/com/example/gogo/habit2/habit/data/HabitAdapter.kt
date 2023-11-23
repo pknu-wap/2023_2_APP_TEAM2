@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gogo.databinding.HabitListItemBinding
 
 
-
-
 class HabitAdapter(private val itemList: List<String>) :RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
     private lateinit var mOnItemClickListener: OnItemClickListener
     private lateinit var mOnRemoveItemClickListener: OnItemClickListener
@@ -30,7 +28,6 @@ class HabitAdapter(private val itemList: List<String>) :RecyclerView.Adapter<Hab
             }
         }
     }
-
 
     interface OnItemClickListener  {
         fun onItemClick(view: View, position: Int)

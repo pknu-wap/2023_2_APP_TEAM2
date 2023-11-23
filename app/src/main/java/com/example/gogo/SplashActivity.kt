@@ -10,7 +10,6 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        // Handler를 사용하여 일정 시간 후에 메인 화면으로 이동
         Handler().postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
             finish()

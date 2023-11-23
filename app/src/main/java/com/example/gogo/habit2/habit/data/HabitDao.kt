@@ -13,5 +13,12 @@ interface HabitDao {
     @Transaction
     @Query("DELETE FROM habits WHERE name = :name")
     fun deleteHabitByName(name: String)
+
+    @Update
+    fun updateHabit(habit: Habit)
+//
+//    @Query("SELECT * FROM habits WHERE name = :habitName")
+//    fun getHabitDetail(habitName: String)
+
 }
 

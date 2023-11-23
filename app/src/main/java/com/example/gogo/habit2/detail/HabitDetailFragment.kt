@@ -1,6 +1,10 @@
 package com.example.gogo.habit2.detail
 
+import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +23,8 @@ class HabitDetailFragment : Fragment() {
     private lateinit var binding: FragmentHabitDetailBinding
     private var habitDatabase: HabitDatabase? = null
     private val mainViewModel : MainViewModel by activityViewModels()
+    private lateinit var habitProgressManager: HabitProgressManager
+    private lateinit var progressBarUtil: ProgressBarUtil
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,10 +38,23 @@ class HabitDetailFragment : Fragment() {
         val layoutManager = GridLayoutManager(context,12)
         recyclerView.layoutManager = layoutManager
 
-        binding.habitNameTextView.text = mainViewModel.selectedHabitName.value
         habitDatabase = HabitDatabase.getInstance(requireContext())
 
-//
+        mainViewModel.selectedHabitName.observe(viewLifecycleOwner) {habitName ->
+            binding.habitNameTextView.text = habitName
+        }
+
+//        mainViewModel.currentStatus.observe(viewLifecycleOwner) { newStatus ->
+//            habitProgressManager.updateTextViews()
+////            binding.currentstatusNumber.text = newStatus
+////            binding.remainingdaysNumber.text = newStatus
+////            binding.achievementrateNumber.text = newStatus
+//        }
+
+// MainViewModel에서 updatehabitDays 호출
+       // mainViewModel.updatehabitDays(새로운_상태_값)
+
+
 //        var habitDetail: HabitDetail? = null
 //
 //        mainViewModel.currentStatus.observe(viewLifecycleOwner) { newStatus ->
@@ -50,9 +69,6 @@ class HabitDetailFragment : Fragment() {
 //                }
 //            }
 //        }
-
-
-
 
 //         ProgressBar 초기화
         val progressBar = binding.progressBar // ProgressBar View 참조

@@ -13,18 +13,20 @@ class MainViewModel : ViewModel() {
     val currentStatus: LiveData<Int> get() = _currentStatus
     init {
         _fragmentStatus.value = PageType.HOME
-        _selectedHabitName.value = "물 1L 마시기"
+        _selectedHabitName.value = "ddd"
         _currentStatus.value = 0
     }
 
     fun updateFragmentStatus(pageType: PageType) {
         _fragmentStatus.value = pageType
     }
+    fun updateSelectedHabitName(newName: String) {
+        _selectedHabitName.value = newName
+    }
 
     fun updatehabitDays(newStatus: Int) {
         _currentStatus.value = newStatus
     }
-
 
     enum class PageType {
         HOME,
