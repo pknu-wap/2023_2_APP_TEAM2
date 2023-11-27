@@ -16,6 +16,9 @@ interface HabitDao {
 
     @Update
     fun updateHabit(habit: Habit)
+
+    @Query("SELECT * FROM habits WHERE name = :habitName")
+    fun getHabitByName(habitName: String): Habit?
 //
 //    @Query("SELECT * FROM habits WHERE name = :habitName")
 //    fun getHabitDetail(habitName: String)

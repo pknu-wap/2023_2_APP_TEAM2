@@ -24,6 +24,7 @@ class AchievementManager(private val achievementrate_number: TextView) {
 
     fun allresetAchieveRate() {
         achievementrateNumber = 0.0
+        updateTextViews()
     }
 
     private fun updateTextViews() {

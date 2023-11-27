@@ -3,6 +3,7 @@ package com.example.gogo.habit2.detail
 import android.app.AlertDialog
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,26 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gogo.MainViewModel
 import com.example.gogo.R
+import com.example.gogo.databinding.ItemRectangleBinding
+import com.example.gogo.habit2.habit.data.Habit
+import com.example.gogo.habit2.habit.data.HabitDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 data class RectangleState(var isDone: Boolean, var handler: Handler? = null)
 
-class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val habitProgressManager: HabitProgressManager,private val achievementManager:AchievementManager) : RecyclerView.Adapter<RectangleAdapter.RectangleViewHolder>() {
+class RectangleAdapter(
+    private var progressBarUtil: ProgressBarUtil,
+    private val habitProgressManager: HabitProgressManager,
+    private val achievementManager:AchievementManager,
+    private val mainViewModel: MainViewModel) : RecyclerView.Adapter<RectangleAdapter.RectangleViewHolder>() {
+    private var habitDatabase: HabitDatabase? = null
     private val rectangleStates = ArrayList<RectangleState>()
     private var lastClickedPosition: Int = -1
 
@@ -43,9 +57,22 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
     inner class RectangleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageViewNone: ImageView = itemView.findViewById(R.id.noneImageView)
         private val imageViewDone: ImageView = itemView.findViewById(R.id.doneImageView)
+        private fun updateDatabaseAndViewModel() {
+            mainViewModel.updatehabitDays(progressBarUtil.currentStatus)
 
+            val habitName = mainViewModel.selectedHabitName.value // 뷰모델에서 habitName 가져오기
+            habitName?.let {
+                val habit = habitDatabase?.habitDao()?.getHabitByName(it)
+
+                habit?.let {
+                    it.habitDaysCompleted = progressBarUtil.currentStatus
+                    habitDatabase?.habitDao()?.updateHabit(it)
+                }
+            }
+        }
 
         fun bind(position: Int) {
+
             val isDoneState = rectangleStates[position].isDone
 
             if (isDoneState) {
@@ -59,13 +86,11 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
             }
 
             itemView.setOnClickListener {
-
                 if (lastClickedPosition == position) {
                     // 클릭한 항목이 이미 최근에 클릭한 항목인 경우, 상태를 반전시킴
                     val currentState = rectangleStates[position]
                     val newState = RectangleState(isDone = !currentState.isDone, handler = null)
                     rectangleStates[position] = newState
-
                     notifyDataSetChanged()
 
                     if (newState.isDone) {
@@ -79,6 +104,7 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
                         habitProgressManager.resetStatusNum()
                         achievementManager.resetAchieveRate()
                     }
+                    updateDatabaseAndViewModel()
                     lastClickedPosition -=1
                 }
                 else if (lastClickedPosition + 1 == position) {
@@ -99,6 +125,7 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
                         habitProgressManager.resetStatusNum()
                         achievementManager.resetAchieveRate()
                     }
+                    updateDatabaseAndViewModel()
                     lastClickedPosition = position
 
                     if (position == itemCount - 1) {
@@ -115,7 +142,6 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
                     toast.setGravity(Gravity.CENTER, 0, 0)
                     toast.show()
                 }
-                //updateCheckboxState()
             }
         }
         private fun showCongratulationsDialog() {
@@ -134,7 +160,7 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
         private fun startResetHandler(position: Int) {
             stopAllResetHandlers()
             val handler = Handler(Looper.getMainLooper())
-            val resetDelay = 60 * 1000L // 1분(밀리초)
+            val resetDelay = 40 * 1000L // 1분(밀리초)
 
             val resetTask = Runnable {
                 for (i in 0 until rectangleStates.size) {
@@ -144,14 +170,15 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
                         rectangleStates[i] = newState
                     }
                 }
-                notifyDataSetChanged()
                 lastClickedPosition = -1 //  초기화
                 progressBarUtil.allresetProgress()
                 habitProgressManager.allreset()
                 achievementManager.allresetAchieveRate()
-                //updateCheckboxState()
+                notifyDataSetChanged()
+                updateDatabaseAndViewModel()
+                //Log.d("HabitDetailFragment", "currentStatus: ${mainViewModel.currentStatus.value}")
+                // Log.d("Handler", "Handler executed at position $position")
             }
-
             rectangleStates[position].handler = handler
             handler.postDelayed(resetTask, resetDelay)
         }
@@ -169,24 +196,6 @@ class RectangleAdapter(private val progressBarUtil: ProgressBarUtil, private val
                 currentState.handler = null
             }
         }
-
-//        // Check if all rectangles are done
-//        fun areAllRectanglesDone(): Boolean {
-//            for (state in rectangleStates) {
-//                if (!state.isDone) {
-//                    return false // If any rectangle is not done, return false
-//                }
-//            }
-//            return true // All rectangles are done
-//        }
-//
-//        // Update the checkbox state
-//        fun updateCheckboxState() {
-//            val view2 = LayoutInflater.from(itemView.context).inflate(R.layout.habit_list_item, null, false)
-//            val checkBox = view2.findViewById<CheckBox>(R.id.checkBox)
-//            checkBox.isChecked = areAllRectanglesDone()
-//        }
     }
-
 
 }

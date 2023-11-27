@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.gogo.MainViewModel
@@ -49,7 +50,6 @@ class HabitFragment : Fragment() {
 
             override fun onRemoveItemClick(view: View, habitName: String) {
                 habitDatabase!!.habitDao().deleteHabitByName(habitName)
-
                 habitList.remove(habitName)
                 adapter.notifyDataSetChanged()
             }
@@ -58,6 +58,7 @@ class HabitFragment : Fragment() {
 
         binding.habitList.adapter = adapter
         loadHabitsFromDatabase()
+
 
         addButton.setOnClickListener {
             val habitName = habitNameEditText.text.toString()

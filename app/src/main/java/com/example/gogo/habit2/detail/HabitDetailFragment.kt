@@ -16,23 +16,25 @@ import com.example.gogo.databinding.FragmentHabitDetailBinding
 import com.example.gogo.habit2.habit.data.Habit
 import com.example.gogo.habit2.habit.data.HabitDatabase
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.selects.select
 
 class HabitDetailFragment : Fragment() {
-    private lateinit var binding: FragmentHabitDetailBinding
+    private var _binding: FragmentHabitDetailBinding? = null
     private var habitDatabase: HabitDatabase? = null
+    private lateinit var habit: Habit
     private val mainViewModel : MainViewModel by activityViewModels()
-    private lateinit var habitProgressManager: HabitProgressManager
+//    private lateinit var habitProgressManager: HabitProgressManager
     private lateinit var progressBarUtil: ProgressBarUtil
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHabitDetailBinding.inflate(inflater, container, false)
-
+        _binding = FragmentHabitDetailBinding.inflate(inflater, container, false)
         val recyclerView = binding.recyclerView
 
         val layoutManager = GridLayoutManager(context,12)
@@ -43,36 +45,22 @@ class HabitDetailFragment : Fragment() {
         mainViewModel.selectedHabitName.observe(viewLifecycleOwner) {habitName ->
             binding.habitNameTextView.text = habitName
         }
-
-//        mainViewModel.currentStatus.observe(viewLifecycleOwner) { newStatus ->
-//            habitProgressManager.updateTextViews()
-////            binding.currentstatusNumber.text = newStatus
-////            binding.remainingdaysNumber.text = newStatus
-////            binding.achievementrateNumber.text = newStatus
-//        }
-
-// MainViewModel에서 updatehabitDays 호출
-       // mainViewModel.updatehabitDays(새로운_상태_값)
+        val progressBar = binding.progressBar // ProgressBar View 참조
+        habit = Habit(name = "YourHabitName")
+        val progressBarUtil = ProgressBarUtil(progressBar, habit)
 
 
-//        var habitDetail: HabitDetail? = null
-//
-//        mainViewModel.currentStatus.observe(viewLifecycleOwner) { newStatus ->
-//            GlobalScope.launch {
-//                val selectedHabitName = mainViewModel.selectedHabitName.value
-//                val habitDetail = selectedHabitName?.let {
-//                    habitDatabase?.habitDetailDao()?.getHabitDetail(it)
-//                }
-//                habitDetail?.let {
-//                    it.habitDaysCompleted = newStatus
-//                    habitDatabase?.habitDetailDao()?.updateHabit(it)
-//                }
-//            }
-//        }
+        Log.d("HabitDetailFragment", "currentStatus: ${mainViewModel.currentStatus.value}")
+        mainViewModel.currentStatus.observe(viewLifecycleOwner) {currentState->
+            Log.d("HabitDetailFragment", "currentStatus: ${mainViewModel.currentStatus.value}")
+            binding.currentstatusNumber.text = currentState.toString()
+            binding.remainingdaysNumber.text = (66-currentState).toString()
+            binding.achievementrateNumber.text = String.format("%.1f", currentState.toDouble()/66*100)
+            binding.progressBar.progress = currentState
+        }
 
 //         ProgressBar 초기화
-        val progressBar = binding.progressBar // ProgressBar View 참조
-        val progressBarUtil = ProgressBarUtil(progressBar)
+
 
         // activity_habit_detail.xml에서 currentstate_number 텍스트뷰 찾기
         val currentstatus_number = binding.currentstatusNumber
@@ -82,12 +70,18 @@ class HabitDetailFragment : Fragment() {
 
         val habitProgressManager = HabitProgressManager(currentstatus_number, remainingdays_number)
         val achievementManager = AchievementManager(achievementrate_number)
-        val adapter = RectangleAdapter(progressBarUtil, habitProgressManager, achievementManager)
+        val adapter = RectangleAdapter(progressBarUtil, habitProgressManager, achievementManager, mainViewModel)
 
         recyclerView.adapter = adapter
 
 
         return binding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 
 }

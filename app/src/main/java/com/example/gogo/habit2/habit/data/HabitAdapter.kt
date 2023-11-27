@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gogo.MainViewModel
 import com.example.gogo.databinding.HabitListItemBinding
 
 
@@ -13,6 +14,7 @@ class HabitAdapter(private val itemList: List<String>) :RecyclerView.Adapter<Hab
     private lateinit var mOnItemClickListener: OnItemClickListener
     private lateinit var mOnRemoveItemClickListener: OnItemClickListener
     private var habitDatabase: HabitDatabase? = null
+    private lateinit var mainViewModel: MainViewModel
     inner class HabitViewHolder(private val binding: HabitListItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.habitTextView.apply {
@@ -22,6 +24,19 @@ class HabitAdapter(private val itemList: List<String>) :RecyclerView.Adapter<Hab
              }
             }
             binding.checkBox
+//            binding.checkBox.apply {
+//                setOnCheckedChangeListener(null)
+//                isChecked = false
+//                setOnCheckedChangeListener { _, isChecked ->
+//                    if (isChecked){
+//                        val selectedHabitName = itemList[position]
+//                        mOnItemClickListener.onRemoveItemClick(this,selectedHabitName)
+////                        mainViewModel.updateSelectedHabitName(selectedHabitName)
+//                      //  mOnItemClickListener.onItemClick(this,position)
+//                    }
+//
+//                }
+//            }
             binding.removeButton.setOnClickListener {
                 val removeHabit = itemList[position]
                 mOnItemClickListener.onRemoveItemClick(it, removeHabit)

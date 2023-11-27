@@ -3,15 +3,18 @@ package com.example.gogo.habit2.detail
 import android.content.SharedPreferences
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.example.gogo.MainViewModel
 import com.example.gogo.databinding.FragmentHabitBinding
 
 class HabitProgressManager(
-    //private val binding: FragmentHabitBinding
     private val currentstatus_number: TextView,
     private val remainingdays_number: TextView
 ) {
+
     private var currentStatusNumber: Int = 0
     private var remainingDaysNumber: Int = 66
+
 
     init {
         updateTextViews()
@@ -40,11 +43,10 @@ class HabitProgressManager(
     fun allreset() {
         currentStatusNumber= 0
         remainingDaysNumber= 66
+        updateTextViews()
     }
 
     private fun updateTextViews() {
-//        binding.currentStatusNumber.text = currentStatusNumber.toString()
-//        binding.remainingdaysNumber.text = remainingDaysNumber.toString()
         currentstatus_number.text = currentStatusNumber.toString()
         remainingdays_number.text = remainingDaysNumber.toString()
     }

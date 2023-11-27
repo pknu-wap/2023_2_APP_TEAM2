@@ -8,5 +8,5 @@ data class Habit(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val name: String,
-    val habitDaysCompleted : Int = 0
+    var habitDaysCompleted : Int = 0
 )
