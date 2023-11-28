@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.example.gogo.databinding.ActivityMainBinding
+import com.example.gogo.gogo2.MyPageFragment
 import com.example.gogo.habit2.detail.HabitDetailFragment
 import com.example.gogo.habit2.habit.data.HabitDatabase
 import com.example.gogo.habit2.habit.data.HabitFragment
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 MainViewModel.PageType.MYPAGE -> {
-
+                    loadFragment(MyPageFragment())
                 }
                 MainViewModel.PageType.HABIT_DETAIL -> {
                     loadFragment(HabitDetailFragment())

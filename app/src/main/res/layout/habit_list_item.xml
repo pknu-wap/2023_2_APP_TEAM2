@@ -31,6 +31,7 @@
         android:layout_width="38dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+
         android:text="X"
         android:textColor="#4FBFCD"
         android:textSize="12dp"
