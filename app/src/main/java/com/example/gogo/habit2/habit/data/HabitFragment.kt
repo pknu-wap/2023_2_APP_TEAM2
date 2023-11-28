@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.gogo.MainViewModel
 import com.example.gogo.databinding.FragmentHabitBinding
+import com.example.gogo.gogo2.AlarmFunctions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -20,6 +21,8 @@ class HabitFragment : Fragment() {
     private var habitDatabase: HabitDatabase? = null
     private var _binding: FragmentHabitBinding? = null
     private val mainViewModel: MainViewModel by activityViewModels()
+
+    private lateinit var alarmFunctions: AlarmFunctions
     private val binding get() = _binding!!
     private lateinit var adapter: HabitAdapter
     override fun onCreateView(
@@ -54,6 +57,8 @@ class HabitFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
 
+
+
         })
 
         binding.habitList.adapter = adapter
@@ -75,6 +80,17 @@ class HabitFragment : Fragment() {
                 habitNameEditText.text.clear()
             }
         }
+
+        alarmFunctions = AlarmFunctions(requireActivity())
+        val time =  "2023-11-21 21:10:00"
+        val random = (1..100000)
+        val alarmCode = random.random()
+        val content = "66일 습관 지키기 잊지 않으셨죠?😉"
+        setAlarm(alarmCode, content, time)
+    }
+
+    fun setAlarm(alarmCode : Int, content : String, time : String){
+        alarmFunctions.callAlarm(time, alarmCode, content)
     }
     private fun loadHabitsFromDatabase() {
         GlobalScope.launch(Dispatchers.IO) {
