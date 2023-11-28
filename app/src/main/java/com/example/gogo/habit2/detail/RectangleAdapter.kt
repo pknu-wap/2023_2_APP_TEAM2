@@ -28,21 +28,24 @@ data class RectangleState(var isDone: Boolean, var handler: Handler? = null)
 
 class RectangleAdapter(
     private var progressBarUtil: ProgressBarUtil,
-    private val habitProgressManager: HabitProgressManager,
-    private val achievementManager:AchievementManager,
-    private val mainViewModel: MainViewModel) : RecyclerView.Adapter<RectangleAdapter.RectangleViewHolder>() {
-    private var habitDatabase: HabitDatabase? = null
+    private val mainViewModel: MainViewModel
+) : RecyclerView.Adapter<RectangleAdapter.RectangleViewHolder>() {
     private val rectangleStates = ArrayList<RectangleState>()
-    private var lastClickedPosition: Int = -1
+    private var lastClickedPosition: Int = mainViewModel.currentStatus.value!! -1
 
     init {
-        for (i in 1..66) {
+        for (i in 1 .. mainViewModel.currentStatus.value!!){
+            rectangleStates.add(RectangleState(isDone = true))
+        }
+
+        for (i in mainViewModel.currentStatus.value!! ..66) {
             rectangleStates.add(RectangleState(isDone = false))
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RectangleViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_rectangle, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_rectangle, parent, false)
         return RectangleViewHolder(view)
     }
 
@@ -57,19 +60,6 @@ class RectangleAdapter(
     inner class RectangleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageViewNone: ImageView = itemView.findViewById(R.id.noneImageView)
         private val imageViewDone: ImageView = itemView.findViewById(R.id.doneImageView)
-        private fun updateDatabaseAndViewModel() {
-            mainViewModel.updatehabitDays(progressBarUtil.currentStatus)
-
-            val habitName = mainViewModel.selectedHabitName.value // 뷰모델에서 habitName 가져오기
-            habitName?.let {
-                val habit = habitDatabase?.habitDao()?.getHabitByName(it)
-
-                habit?.let {
-                    it.habitDaysCompleted = progressBarUtil.currentStatus
-                    habitDatabase?.habitDao()?.updateHabit(it)
-                }
-            }
-        }
 
         fun bind(position: Int) {
 
@@ -87,6 +77,7 @@ class RectangleAdapter(
 
             itemView.setOnClickListener {
                 if (lastClickedPosition == position) {
+                    Log.d("clickTest1", mainViewModel.currentStatus.value.toString())
                     // 클릭한 항목이 이미 최근에 클릭한 항목인 경우, 상태를 반전시킴
                     val currentState = rectangleStates[position]
                     val newState = RectangleState(isDone = !currentState.isDone, handler = null)
@@ -96,19 +87,17 @@ class RectangleAdapter(
                     if (newState.isDone) {
                         startResetHandler(position)
                         progressBarUtil.incrementProgress()
-                        habitProgressManager.updateStatusNum()
-                        achievementManager.updateAchieveRate()
                     } else {
                         stopResetHandler(position)
                         progressBarUtil.resetProgress()
-                        habitProgressManager.resetStatusNum()
-                        achievementManager.resetAchieveRate()
                     }
-                    updateDatabaseAndViewModel()
-                    lastClickedPosition -=1
-                }
-                else if (lastClickedPosition + 1 == position) {
+                    mainViewModel.updatehabitDays(position)
+
+                    lastClickedPosition -= 1
+                    Log.d("clickTest2", mainViewModel.currentStatus.value.toString())
+                } else if (lastClickedPosition + 1 == position) {
                     // 새로운 항목을 클릭한 경우
+                    Log.d("clickTest3", mainViewModel.currentStatus.value.toString())
                     val currentState = rectangleStates[position]
                     val newState = RectangleState(isDone = !currentState.isDone, handler = null)
                     rectangleStates[position] = newState
@@ -117,23 +106,22 @@ class RectangleAdapter(
                     if (newState.isDone) {
                         startResetHandler(position)
                         progressBarUtil.incrementProgress()
-                        habitProgressManager.updateStatusNum()
-                        achievementManager.updateAchieveRate()
                     } else {
                         stopResetHandler(position)
                         progressBarUtil.resetProgress()
-                        habitProgressManager.resetStatusNum()
-                        achievementManager.resetAchieveRate()
                     }
-                    updateDatabaseAndViewModel()
+
+                    Log.d("clickTest4", mainViewModel.currentStatus.value.toString())
+                    mainViewModel.updatehabitDays(position + 1)
                     lastClickedPosition = position
+                    Log.d("clickTest5", mainViewModel.currentStatus.value.toString())
 
                     if (position == itemCount - 1) {
                         showCongratulationsDialog()
                     }
-                }
-                else {
-                    var errorMessage : String = "바로 옆의 BOX만 선택할 수 있습니다."
+                    Log.d("clickTest6", mainViewModel.currentStatus.value.toString())
+                } else {
+                    var errorMessage: String = "바로 옆의 BOX만 선택할 수 있습니다."
                     if (lastClickedPosition == -1) {
                         errorMessage = "첫번째 BOX부터 선택해주세요."
                     }
@@ -144,6 +132,7 @@ class RectangleAdapter(
                 }
             }
         }
+
         private fun showCongratulationsDialog() {
             val alertDialogBuilder = AlertDialog.Builder(itemView.context)
 
@@ -172,10 +161,8 @@ class RectangleAdapter(
                 }
                 lastClickedPosition = -1 //  초기화
                 progressBarUtil.allresetProgress()
-                habitProgressManager.allreset()
-                achievementManager.allresetAchieveRate()
                 notifyDataSetChanged()
-                updateDatabaseAndViewModel()
+                mainViewModel.updatehabitDays(lastClickedPosition + 1)
                 //Log.d("HabitDetailFragment", "currentStatus: ${mainViewModel.currentStatus.value}")
                 // Log.d("Handler", "Handler executed at position $position")
             }

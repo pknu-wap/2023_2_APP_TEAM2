@@ -23,11 +23,13 @@ import kotlinx.coroutines.selects.select
 class HabitDetailFragment : Fragment() {
     private var _binding: FragmentHabitDetailBinding? = null
     private var habitDatabase: HabitDatabase? = null
-    private lateinit var habit: Habit
     private val mainViewModel : MainViewModel by activityViewModels()
-//    private lateinit var habitProgressManager: HabitProgressManager
+    //    private lateinit var habitProgressManager: HabitProgressManager
     private lateinit var progressBarUtil: ProgressBarUtil
+    private lateinit var habit: Habit
     private val binding get() = _binding!!
+
+    private lateinit var adapter : RectangleAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,44 +37,27 @@ class HabitDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHabitDetailBinding.inflate(inflater, container, false)
-        val recyclerView = binding.recyclerView
 
         val layoutManager = GridLayoutManager(context,12)
-        recyclerView.layoutManager = layoutManager
+        binding.recyclerView.layoutManager = layoutManager
 
         habitDatabase = HabitDatabase.getInstance(requireContext())
 
-        mainViewModel.selectedHabitName.observe(viewLifecycleOwner) {habitName ->
-            binding.habitNameTextView.text = habitName
-        }
-        val progressBar = binding.progressBar // ProgressBar View 참조
-        habit = Habit(name = "YourHabitName")
-        val progressBarUtil = ProgressBarUtil(progressBar, habit)
+        habit = habitDatabase!!.habitDao().getHabitByName(mainViewModel.selectedHabitName.value!!)!!
+
+        mainViewModel.updatehabitDays(habit.habitDaysCompleted)
+
+        setUI(habit)
 
 
-        Log.d("HabitDetailFragment", "currentStatus: ${mainViewModel.currentStatus.value}")
-        mainViewModel.currentStatus.observe(viewLifecycleOwner) {currentState->
-            Log.d("HabitDetailFragment", "currentStatus: ${mainViewModel.currentStatus.value}")
+        mainViewModel.currentStatus.observe(viewLifecycleOwner) { currentState ->
+            habit.habitDaysCompleted = currentState
             binding.currentstatusNumber.text = currentState.toString()
-            binding.remainingdaysNumber.text = (66-currentState).toString()
-            binding.achievementrateNumber.text = String.format("%.1f", currentState.toDouble()/66*100)
+            binding.remainingdaysNumber.text = (66 - currentState).toString()
+            binding.achievementrateNumber.text =
+                String.format("%.1f", currentState.toDouble() / 66 * 100)
             binding.progressBar.progress = currentState
         }
-
-//         ProgressBar 초기화
-
-
-        // activity_habit_detail.xml에서 currentstate_number 텍스트뷰 찾기
-        val currentstatus_number = binding.currentstatusNumber
-        val remainingdays_number = binding.remainingdaysNumber
-        val achievementrate_number = binding.achievementrateNumber
-
-
-        val habitProgressManager = HabitProgressManager(currentstatus_number, remainingdays_number)
-        val achievementManager = AchievementManager(achievementrate_number)
-        val adapter = RectangleAdapter(progressBarUtil, habitProgressManager, achievementManager, mainViewModel)
-
-        recyclerView.adapter = adapter
 
 
         return binding.root
@@ -80,7 +65,28 @@ class HabitDetailFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d("adapter", mainViewModel.currentStatus.value.toString())
+        habit.habitDaysCompleted = mainViewModel.currentStatus.value!!
+        habitDatabase?.habitDao()?.updateHabit(habit)
+
         _binding = null
+    }
+
+
+    private fun setUI(habit: Habit){
+        binding.habitNameTextView.text = habit.name
+        val progressBar = binding.progressBar // ProgressBar View 참조
+
+        progressBarUtil = ProgressBarUtil(progressBar, habit)
+
+        binding.currentstatusNumber.text = habit.habitDaysCompleted.toString()
+        binding.remainingdaysNumber.text = (66-habit.habitDaysCompleted).toString()
+        binding.achievementrateNumber.text = String.format("%.1f", habit.habitDaysCompleted.toDouble()/66*100)
+        binding.progressBar.progress = habit.habitDaysCompleted
+
+        adapter = RectangleAdapter(progressBarUtil,mainViewModel)
+
+        binding.recyclerView.adapter = adapter
     }
 
 
