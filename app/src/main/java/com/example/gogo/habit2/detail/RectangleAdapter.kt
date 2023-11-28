@@ -38,7 +38,7 @@ class RectangleAdapter(
             rectangleStates.add(RectangleState(isDone = true))
         }
 
-        for (i in mainViewModel.currentStatus.value!! ..66) {
+        for (i in mainViewModel.currentStatus.value!!+1 ..66) {
             rectangleStates.add(RectangleState(isDone = false))
         }
     }
@@ -162,7 +162,7 @@ class RectangleAdapter(
                 lastClickedPosition = -1 //  초기화
                 progressBarUtil.allresetProgress()
                 notifyDataSetChanged()
-                mainViewModel.updatehabitDays(lastClickedPosition + 1)
+                mainViewModel.updatehabitDays(lastClickedPosition + 1 )
                 //Log.d("HabitDetailFragment", "currentStatus: ${mainViewModel.currentStatus.value}")
                 // Log.d("Handler", "Handler executed at position $position")
             }
