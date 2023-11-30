@@ -82,7 +82,7 @@ class HabitFragment : Fragment() {
         }
 
         alarmFunctions = AlarmFunctions(requireActivity())
-        val time =  "2023-11-21 21:10:00"
+        val time =  "2023-11-30 08:00:00"
         val random = (1..100000)
         val alarmCode = random.random()
         val content = "66일 습관 지키기 잊지 않으셨죠?😉"
