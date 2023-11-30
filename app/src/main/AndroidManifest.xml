@@ -24,9 +24,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GoGo"
+
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
+
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light">
@@ -73,7 +75,7 @@
         </activity>
 
         <receiver
-            android:name=".gogo2.AlarmReceiver"
+            android:name=".gogo2.alarm.AlarmReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>

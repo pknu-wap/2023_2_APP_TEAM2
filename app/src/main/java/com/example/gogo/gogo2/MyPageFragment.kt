@@ -22,6 +22,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.gogo.R
 import com.example.gogo.databinding.FragmentMypageBinding
+import com.example.gogo.gogo2.completedhabit.CompletedHabitAdapter
 
 //interface HabitItemClickListener {
 //    fun onHabitItemClicked(isIncrement: Boolean)
@@ -53,10 +54,12 @@ class MyPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val temp = arrayListOf<String>("물 1L이상 마시기","비타민 챙겨먹기","운동 10분이상하기","아침 9시 기상하기")
 
         view.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.myPageViewModel = myPageViewModel
+        binding.completedHabitName.adapter = CompletedHabitAdapter(temp)
 
         binding.profileImage.setOnClickListener {
             Log.d("MyPageFragment", "Profile image clicked")

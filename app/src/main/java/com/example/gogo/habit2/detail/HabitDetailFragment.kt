@@ -38,7 +38,7 @@ class HabitDetailFragment : Fragment() {
     ): View? {
         _binding = FragmentHabitDetailBinding.inflate(inflater, container, false)
 
-        val layoutManager = GridLayoutManager(context,12)
+        val layoutManager = GridLayoutManager(context,10)
         binding.recyclerView.layoutManager = layoutManager
 
         habitDatabase = HabitDatabase.getInstance(requireContext())

@@ -1,4 +1,4 @@
-package com.example.gogo.gogo2
+package com.example.gogo.gogo2.alarm
 
 
 import android.os.Bundle
@@ -6,10 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import androidx.fragment.app.Fragment
 import com.example.gogo.databinding.FragmentAlarmBinding
-import java.util.Calendar
 
 class AlarmFragment : Fragment(){
 

@@ -1,4 +1,4 @@
-package com.example.gogo.gogo2
+package com.example.gogo.gogo2.alarm
 
 
 import android.annotation.SuppressLint
@@ -12,7 +12,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.SystemClock
 import androidx.core.app.NotificationCompat
-import com.example.gogo.R
 
 class AlarmReceiver() : BroadcastReceiver() {
 

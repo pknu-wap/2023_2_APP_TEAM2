@@ -1,4 +1,4 @@
-package com.example.gogo.gogo2
+package com.example.gogo.gogo2.alarm
 
 
 import android.app.AlarmManager

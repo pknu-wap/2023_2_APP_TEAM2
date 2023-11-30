@@ -10,14 +10,14 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/goaltrackersquare_none"
-        android:layout_margin="8dp" />
+        android:layout_margin="5dp" />
 
     <ImageView
         android:id="@+id/doneImageView"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/goaltrackersquare_done"
-        android:layout_margin="8dp"
+        android:layout_margin="5dp"
         android:visibility="gone" /> <!-- "done" 이미지를 처음에는 숨깁니다 -->
 
 </LinearLayout>
