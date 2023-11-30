@@ -63,8 +63,6 @@ class CameraProfileFragment : Fragment() {
 //    )
 
 
-
-
     private val activityResultLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions())
@@ -230,10 +228,6 @@ class CameraProfileFragment : Fragment() {
             }.toTypedArray()
 
     }
-
-
-
-
 
 }
 
