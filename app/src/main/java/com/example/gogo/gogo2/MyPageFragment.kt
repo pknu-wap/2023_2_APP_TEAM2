@@ -13,6 +13,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -27,7 +29,7 @@ import com.example.gogo.databinding.FragmentMypageBinding
 
 class MyPageFragment : Fragment() {
     private lateinit var binding: FragmentMypageBinding
-    private lateinit var myPageViewModel: MyPageViewModel
+    private val myPageViewModel: MyPageViewModel by activityViewModels()
     private lateinit var name: TextView
     private lateinit var progressEntireUtil: ProgressEntireUtil
     private val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 123
@@ -63,15 +65,11 @@ class MyPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        name = binding.nickName
 
         view.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
 
-        myPageViewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
-
-        myPageViewModel.nickName.observe(viewLifecycleOwner, Observer {
-            name.text = it
-        })
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.myPageViewModel = myPageViewModel
 
         binding.profileImage.setOnClickListener {
             Log.d("MyPageFragment", "Profile image clicked")
@@ -82,12 +80,12 @@ class MyPageFragment : Fragment() {
                     updateProfileImage(imageUri)
                 }
             })
-            ProfileEditDialogFragment().show(childFragmentManager, ProfileEditDialogFragment.TAG)
+            ProfileEditDialogFragment().show(childFragmentManager, ProfileEditDialogFragment.DIALOG_TAG)
 
         }
 
         binding.nickName.setOnClickListener {
-            NicknameDialog().show(childFragmentManager,NicknameDialog.TAG)
+            NicknameEditDialog().show(childFragmentManager,NicknameEditDialog.TAG)
         }
 
         val progressBar1: ProgressBar = view.findViewById(R.id.progressBar1)
