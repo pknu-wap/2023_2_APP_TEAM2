@@ -12,12 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible"/>
-
     <Button
         android:id="@+id/image_capture_button"
         android:layout_width="110dp"
@@ -31,7 +25,7 @@
         app:layout_constraintEnd_toStartOf="@id/vertical_centerline" />
 
     <Button
-        android:id="@+id/back_button"
+        android:id="@+id/back_function_button"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_marginBottom="50dp"

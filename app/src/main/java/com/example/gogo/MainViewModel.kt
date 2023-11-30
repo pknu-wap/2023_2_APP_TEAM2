@@ -33,6 +33,7 @@ class MainViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
     enum class PageType {
         HOME,
         MYPAGE,
-        HABIT_DETAIL
+        HABIT_DETAIL,
+        CAMERA
     }
 }
