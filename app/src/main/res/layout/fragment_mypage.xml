@@ -17,100 +17,87 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/frameLayout2"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/ProgressBarLayout"
-            app:layout_constraintVertical_weight="0.3">
-
-
-            <TextView
-                android:id="@+id/nickName"
-                android:layout_width="216dp"
-                android:layout_height="54dp"
-                android:background="@null"
-                android:text="@{myPageViewModel.nickName}"
-                android:textColor="#000000"
-                android:textSize="27sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.669"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profileImage"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:src="@drawable/profile_sky"
-                android:contentDescription="profile"
-                app:civ_border_color="#A3A3A3"
-                app:civ_border_overlay="true"
-                app:civ_border_width="0.5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.14"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:clickable="true"
-                android:focusable="true"/>
-
+            android:id="@+id/mypageStartLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintHorizontal_weight="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/mypageMiddleLayout">
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ProgressBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/frameLayout2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_weight="0.8">
+            android:id="@+id/mypageMiddleLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintHorizontal_weight="1.2"
+            app:layout_constraintStart_toEndOf="@id/mypageStartLayout"
+            app:layout_constraintEnd_toStartOf="@id/mypageEndLayout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ProgressTextLayout"
+                android:id="@+id/mypageProfileLayout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@id/ProgressFigureLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_weight="3"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_weight="0.1">
+                app:layout_constraintBottom_toTopOf="@id/mypageGoalLayout">
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="한 줄 목표"
-                    android:textSize="22sp"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:contentDescription="profile"
+                    android:focusable="true"
+                    android:src="@drawable/profile_sky"
+                    app:civ_border_color="#A3A3A3"
+                    app:civ_border_overlay="true"
+                    app:civ_border_width="0.5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <!--                app:layout_constraintEnd_toStartOf="@id/nickName"-->
+
+
+                <EditText
+                    android:id="@+id/nickName"
+                    android:layout_width="216dp"
+                    android:layout_height="54dp"
+                    android:background="@null"
+                    android:text="@{myPageViewModel.nickName}"
+                    android:textColor="#000000"
+                    android:textSize="27sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.089"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintHorizontal_bias="0.208"
+                    app:layout_constraintStart_toEndOf="@id/profileImage"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.496" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ProgressFigureLayout"
+                android:id="@+id/mypageGoalLayout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/DoingTextLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ProgressTextLayout"
-                app:layout_constraintVertical_weight="0.2">
+                app:layout_constraintVertical_weight="2"
+                app:layout_constraintTop_toBottomOf="@id/mypageProfileLayout"
+                app:layout_constraintBottom_toTopOf="@id/mypageDoingLayout">
+
+                <TextView
+                    android:id="@+id/GoalTextView"
+                    android:layout_width="230dp"
+                    android:layout_height="50dp"
+                    android:background="@null"
+                    android:text="한 줄 목표"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="25dp">
+                </TextView>
 
                 <EditText
                     android:id="@+id/GoalText"
@@ -118,125 +105,124 @@
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/GoalTextView"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
                     android:text="목표를 입력해주세요."/>
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/DoingTextLayout"
+                android:id="@+id/mypageDoingLayout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/DoingThingsLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ProgressFigureLayout"
-                app:layout_constraintVertical_weight="0.1">
+                app:layout_constraintVertical_weight="1"
+                app:layout_constraintTop_toBottomOf="@id/mypageGoalLayout"
+                app:layout_constraintBottom_toTopOf="@id/mypageMarginLayout">
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="진행중인 습관"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.106"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/DoingThingsLayout"
+                android:id="@+id/mypageMarginLayout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/BadgetPageLayout"
+                app:layout_constraintBottom_toTopOf="@id/mypageBadgeLayout"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/DoingTextLayout"
-                app:layout_constraintVertical_weight="0.6">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mypageDoingLayout"
+                app:layout_constraintVertical_weight="3.5">
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/BadgetPageLayout"
+                android:id="@+id/mypageBadgeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintVertical_weight="0.1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/DoingThingsLayout"
-                app:layout_constraintBottom_toTopOf="@id/BadgetPictureLayout">
-
+                app:layout_constraintVertical_weight="2"
+                app:layout_constraintTop_toBottomOf="@id/mypageMarginLayout"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <TextView
-                    android:id="@+id/badgetTextView"
+                    android:id="@+id/badgeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="뱃지도감"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.096"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="뱃지 도감"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.076" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/BadgetPictureLayout"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/BadgetPageLayout"
-                app:layout_constraintVertical_weight="0.3">
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-            <!--        <Button-->
-            <!--            android:id="@+id/galleryBtn"-->
-            <!--            android:layout_width="86dp"-->
-            <!--            android:layout_height="48dp"-->
-            <!--            android:background="#9BACD2"-->
-            <!--            android:text="사 진"-->
-            <!--            android:textSize="18sp"-->
-            <!--            tools:layout_editor_absoluteX="309dp"-->
-            <!--            tools:layout_editor_absoluteY="360dp" />-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!--        <Button-->
-            <!--            android:id="@+id/cameraBtn"-->
-            <!--            android:layout_width="86dp"-->
-            <!--            android:layout_height="48dp"-->
-            <!--            android:background="#9BACD2"-->
-            <!--            android:text="카메라"-->
-            <!--            android:textSize="18sp"-->
-            <!--            tools:layout_editor_absoluteX="309dp"-->
-            <!--            tools:layout_editor_absoluteY="424dp" />-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mypageEndLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintHorizontal_weight="0.1"
+            app:layout_constraintStart_toEndOf="@id/mypageMiddleLayout"
+            app:layout_constraintEnd_toEndOf="parent">
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-<!--        <View-->
-<!--            android:id="@+id/view"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="5px"-->
-<!--            android:background="#ccc"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.529"-->
-<!--            tools:layout_editor_absoluteX="16dp" />-->
+
+
+
+        <!--        <Button-->
+        <!--            android:id="@+id/galleryBtn"-->
+        <!--            android:layout_width="86dp"-->
+        <!--            android:layout_height="48dp"-->
+        <!--            android:background="#9BACD2"-->
+        <!--            android:text="사 진"-->
+        <!--            android:textSize="18sp"-->
+        <!--            tools:layout_editor_absoluteX="309dp"-->
+        <!--            tools:layout_editor_absoluteY="360dp" />-->
+
+        <!--        <Button-->
+        <!--            android:id="@+id/cameraBtn"-->
+        <!--            android:layout_width="86dp"-->
+        <!--            android:layout_height="48dp"-->
+        <!--            android:background="#9BACD2"-->
+        <!--            android:text="카메라"-->
+        <!--            android:textSize="18sp"-->
+        <!--            tools:layout_editor_absoluteX="309dp"-->
+        <!--            tools:layout_editor_absoluteY="424dp" />-->
+
+
+
+        <!--    <View-->
+        <!--        android:id="@+id/view"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="5px"-->
+        <!--        android:background="#ccc"-->
+        <!--        app:layout_constraintTop_toTopOf="parent"-->
+        <!--        app:layout_constraintVertical_bias="0.529"-->
+        <!--      />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 

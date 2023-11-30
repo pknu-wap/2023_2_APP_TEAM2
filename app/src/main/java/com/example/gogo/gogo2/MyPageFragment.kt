@@ -47,18 +47,6 @@ class MyPageFragment : Fragment() {
         binding = FragmentMypageBinding.inflate(inflater, container, false)
         return binding.root
     }
-//        val view = inflater.inflate(R.layout.fragment_mypage, container, false)
-//        name = binding.name
-//        name = view.findViewById(R.id.name)
-//        binding = FragmentMypageBinding.inflate(inflater, container, false)
-//
-//        binding.name.text = myPageViewModel.nickName.value
-//        myPageViewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
-//        myPageViewModel.nickName.observe(viewLifecycleOwner, Observer {
-
-//            name.text = it
-//        }
-//    )
 
 
 
@@ -67,7 +55,6 @@ class MyPageFragment : Fragment() {
 
 
         view.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.myPageViewModel = myPageViewModel
 
@@ -97,34 +84,6 @@ class MyPageFragment : Fragment() {
         }
 
 
-//        val progressBar1: ProgressBar = view.findViewById(R.id.progressBar1)
-//        progressEntireUtil = ProgressEntireUtil(progressBar1, this)
-
-
-
-//            if (ContextCompat.checkSelfPermission(
-//                    requireActivity(),
-//                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-//                ) != PackageManager.PERMISSION_GRANTED
-//            ) {
-//                ActivityCompat.requestPermissions(
-//                    requireActivity(),
-//                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-//                    MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE
-//                )
-//            } else {
-//
-
-//                dialog.setEditNicknameListener(object : EditNicknameActivity.EditNicknameListener {
-//                    override fun onOkButtonClicked(newNickname: String) {
-//                        val resultIntent = Intent()
-//                        resultIntent.putExtra("newNickname", newNickname)
-//                        setResult(Activity.RESULT_OK, resultIntent)
-//                        finish()
-//                    }
-//                })
-//                dialog.show(supportFragmentManager, "CustomDialog")
-//            }
     }
 
     fun onHabitItemClicked(isIncrement: Boolean) {
@@ -134,25 +93,6 @@ class MyPageFragment : Fragment() {
             progressEntireUtil.resetProgress()
         }
     }
-
-
-//        binding.okBtn.setOnClickListener {
-//            Toast.makeText(this, "Ok button clicked", Toast.LENGTH_SHORT).show()
-//            // 닉네임 수정 후 완료버튼 눌렀을 때
-////            binding.okBtn.setOnClickListener {
-////                val resultIntent = Intent()
-////
-////                val input = NicknameDialog.text.toString()
-////                resultIntent.putExtra("newNickname", input)
-////                setResult(Activity.RESULT_OK, resultIntent)
-////
-////                finish()
-////            }
-//        }
-
-
-//        return binding.root
-//    }
 
     private fun isNotGranted() =
         ContextCompat.checkSelfPermission(
