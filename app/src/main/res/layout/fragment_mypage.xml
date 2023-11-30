@@ -61,7 +61,7 @@
                 <!--                app:layout_constraintEnd_toStartOf="@id/nickName"-->
 
 
-                <EditText
+                <TextView
                     android:id="@+id/nickName"
                     android:layout_width="216dp"
                     android:layout_height="54dp"
