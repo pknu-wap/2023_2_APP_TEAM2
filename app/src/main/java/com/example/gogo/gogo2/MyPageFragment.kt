@@ -88,8 +88,17 @@ class MyPageFragment : Fragment() {
             NicknameEditDialog().show(childFragmentManager,NicknameEditDialog.TAG)
         }
 
-        val progressBar1: ProgressBar = view.findViewById(R.id.progressBar1)
-        progressEntireUtil = ProgressEntireUtil(progressBar1, this)
+        myPageViewModel.profileImage.observe(viewLifecycleOwner) {
+            Glide.with(requireActivity())
+                .load(it)
+                .error(R.drawable.profile_sky)
+                .fallback(R.drawable.profile_sky)
+                .into(binding.profileImage)
+        }
+
+
+//        val progressBar1: ProgressBar = view.findViewById(R.id.progressBar1)
+//        progressEntireUtil = ProgressEntireUtil(progressBar1, this)
 
 
 

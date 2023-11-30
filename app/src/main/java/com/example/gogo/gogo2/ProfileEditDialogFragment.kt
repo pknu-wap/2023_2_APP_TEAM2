@@ -22,6 +22,7 @@ import androidx.camera.core.ImageCapture
 import androidx.camera.core.VideoCapture
 import androidx.camera.video.Recorder
 import androidx.camera.video.Recording
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
@@ -34,7 +35,7 @@ import java.util.concurrent.ExecutorService
 
 class ProfileEditDialogFragment : DialogFragment() {
 
-    private val mainViewModel : MainViewModel by activityViewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     interface ProfileImageListener {
         fun onProfileImageCaptured(imageUri: Uri)
@@ -53,7 +54,18 @@ class ProfileEditDialogFragment : DialogFragment() {
     private val OPEN_GALLERY = 1
     private val TAKE_PICTURE = 2
 
+    private val myPageViewModel: MyPageViewModel by activityViewModels()
 
+    private val imageResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val imageUri = result.data?.data
+            imageUri?.let {
+                myPageViewModel.updateProfileImage(it)
+            }
+        }
+    }
 
 
     override fun onCreateView(
@@ -92,8 +104,13 @@ class ProfileEditDialogFragment : DialogFragment() {
         }
 
         binding.dialBtn2.setOnClickListener {
-            val intent: Intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.setType("image/*")
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                "image/*")
+            imageResult.launch(intent)
+//            Log.d("test","1")
+//            selectGallery()
+//            Log.d("test","2")
         }
 
 //        binding.dialBtn2.setOnClickListener {
@@ -220,9 +237,62 @@ class ProfileEditDialogFragment : DialogFragment() {
         _binding = null
     }
 
+    private fun getRealPathFromURI(uri: Uri): String {
+        val buildName = Build.MANUFACTURER
+        if (buildName.equals("Xiaomi")) {
+            return uri.path!!
+        }
+        var columnIndex = 0
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = requireActivity().contentResolver.query(uri, proj, null, null, null)
+        if (cursor!!.moveToFirst()) {
+            columnIndex =
+                cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        }
+        val result = cursor.getString(columnIndex)
+        cursor.close()
+        return result
+    }
+
+    private fun selectGallery() {
+        val writePermission = ContextCompat.checkSelfPermission(
+            requireActivity(),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+        val readPermission = ContextCompat.checkSelfPermission(
+            requireActivity(),
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+
+        if (writePermission == PackageManager.PERMISSION_DENIED ||
+            readPermission == PackageManager.PERMISSION_DENIED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ),
+                REQ_GALLERY
+            )
+        } else {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                "image/*")
+            imageResult.launch(intent)
+        }
+    }
 
 
     companion object {
         const val DIALOG_TAG = "ProfileEditDialog"
+
+        const val REVIEW_MIN_LENGTH = 10
+        const val REQ_GALLERY = 1
+
+        const val PARAM_KEY_IMAGE = "image"
+        const val PARAM_KEY_PRODUCT_ID = "product_id"
+        const val PARAM_KEY_REVIEW = "review_content"
+        const val PARAM_KEY_RATING = "rating"
     }
 }

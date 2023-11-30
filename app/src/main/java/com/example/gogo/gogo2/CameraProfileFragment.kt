@@ -1,11 +1,14 @@
 package com.example.gogo.gogo2
 
 import android.Manifest
+import android.app.Activity.RESULT_OK
+import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.icu.text.SimpleDateFormat
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -29,6 +32,8 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.bumptech.glide.request.RequestOptions
 import com.example.gogo.databinding.FragmentCameraProfileBinding
 import com.example.gogo2.MyPageActivity
 import java.util.Locale
@@ -48,6 +53,8 @@ class CameraProfileFragment : Fragment() {
     private lateinit var cameraExecutor: ExecutorService
 
     private lateinit var callback: OnBackPressedCallback  //
+
+    private val myPageViewModel: MyPageViewModel by activityViewModels()
 
 //    private val REQUIRED_PERMISSIONS = arrayOf(
 //        Manifest.permission.CAMERA,
@@ -123,31 +130,32 @@ class CameraProfileFragment : Fragment() {
             }
         }
 
-        // Create output options object which contains file + metadata
-//        val outputOptions = ImageCapture.OutputFileOptions
-//            .Builder(contentResolver,
-//                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-//                contentValues)
-//            .build()
-//
-//        // Set up image capture listener, which is triggered after photo has
-//        // been taken
-//        imageCapture.takePicture(
-//            outputOptions,
-//            ContextCompat.getMainExecutor(requireActivity()),  //this
-//            object : ImageCapture.OnImageSavedCallback {
-//                override fun onError(exc: ImageCaptureException) {
-//                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
-//                }
-//
-//                override fun
-//                        onImageSaved(output: ImageCapture.OutputFileResults){
-//                    val msg = "Photo capture succeeded: ${output.savedUri}"
-//                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()  //baseContext
-//                    Log.d(TAG, msg)
-//                }
-//            }
-//        )
+//         Create output options object which contains file + metadata
+        val outputOptions = ImageCapture.OutputFileOptions
+            .Builder(requireActivity().contentResolver,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                contentValues)
+            .build()
+
+        // Set up image capture listener, which is triggered after photo has
+        // been taken
+        imageCapture.takePicture(
+            outputOptions,
+            ContextCompat.getMainExecutor(requireActivity()),  //this
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onError(exc: ImageCaptureException) {
+                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+                }
+
+                override fun
+                        onImageSaved(output: ImageCapture.OutputFileResults){
+                    val msg = "Photo capture succeeded: ${output.savedUri}"
+                    myPageViewModel.updateProfileImage(output.savedUri!!)
+                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()  //baseContext
+                    Log.d(TAG, msg)
+                }
+            }
+        )
     }
 
     private fun navigateBack() {
@@ -191,6 +199,8 @@ class CameraProfileFragment : Fragment() {
     }
 
 
+
+
     private fun requestPermissions() {
         activityResultLauncher.launch(REQUIRED_PERMISSIONS)
     }
@@ -218,7 +228,13 @@ class CameraProfileFragment : Fragment() {
                     add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 }
             }.toTypedArray()
+
     }
+
+
+
+
+
 }
 
 
