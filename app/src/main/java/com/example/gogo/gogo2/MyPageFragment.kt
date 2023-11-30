@@ -75,6 +75,10 @@ class MyPageFragment : Fragment() {
             NicknameEditDialog().show(childFragmentManager,NicknameEditDialog.TAG)
         }
 
+        myPageViewModel.goalText.observe(viewLifecycleOwner){
+            binding.GoalText.setText(it)
+        }
+
         myPageViewModel.profileImage.observe(viewLifecycleOwner) {
             Glide.with(requireActivity())
                 .load(it)
@@ -122,6 +126,12 @@ class MyPageFragment : Fragment() {
                 .show()
         }
         myPageViewModel.updateNickName(newNickname?: "")
+    }
+
+    override fun onDestroyView() {
+
+        super.onDestroyView()
+        myPageViewModel.updateGoalText(binding.GoalText.text.toString())
     }
 
 
