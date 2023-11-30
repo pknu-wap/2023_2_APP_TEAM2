@@ -90,8 +90,8 @@ class MyPageFragment : Fragment() {
             NicknameDialog().show(childFragmentManager,NicknameDialog.TAG)
         }
 
-        val progressBar1: ProgressBar = view.findViewById(R.id.progressBar1)
-        progressEntireUtil = ProgressEntireUtil(progressBar1, this)
+//        val progressBar1: ProgressBar = view.findViewById(R.id.progressBar1)
+//        progressEntireUtil = ProgressEntireUtil(progressBar1, this)
 
 
 

@@ -53,7 +53,7 @@ class AlarmReceiver() : BroadcastReceiver() {
             .setContentTitle("오늘 습관 지키기 잊지 않으셨죠?\uD83D\uDE09\n")
             .setContentText("오늘 하루도 습관 잘 지켜서 발전하는 어른되기💪")
             .setStyle(NotificationCompat.BigTextStyle().bigText("오늘 하루도 습관 잘 지켜서 발전하는 어른되기\uD83D\uDCAA"))
-            .setSmallIcon(androidx.core.R.drawable.notify_panel_notification_icon_bg)
+            .setSmallIcon(androidx.core.R.drawable.)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
             .build()
